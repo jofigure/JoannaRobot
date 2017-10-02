@@ -10,18 +10,8 @@ public class ChatbotMain {
 	public static void main(String[] args) {
 		chatbot.startChatting();
 	}
-	
-	//copied from utility
-	/**
-	 * 
-	 * @param searchString
-	 * @param keyword
-	 * @param startPsn
-	 * @return the index of the keyword after startPsn that is isolated and has no negations or -1 otherwise
-	 */
-	
+		
 	public static int findKeyword(String searchString, String keyword, int startPsn) {
-		//make lowercase
 		searchString = searchString.toLowerCase();
 		keyword = keyword.toLowerCase();
 		int psn = searchString.indexOf(keyword, startPsn);
@@ -34,19 +24,17 @@ public class ChatbotMain {
 	}
 
 	public static boolean keywordIsIsolated(int psn, String keyword, String s){
-		String charBefore;
-		String charAfter;
 		if(keyword.length() == s.length())
 			return true;
 		else if(psn == 0) {
-			charAfter = s.substring(psn + keyword.length(), psn + keyword.length() + 1);
+			String charAfter = s.substring(psn + keyword.length(), psn + keyword.length() + 1);
 			return charAfter.compareTo("a") < 0;
 		} else if(psn + keyword.length() == s.length()) {
-			charBefore = s.substring(psn - 1, psn);
+			String charBefore = s.substring(psn - 1, psn);
 			return charBefore.compareTo("a") < 0;
 		} else {
-			charBefore = s.substring(psn - 1, psn);
-			charAfter = s.substring(psn + keyword.length(), psn + keyword.length() + 1);
+			String charBefore = s.substring(psn - 1, psn);
+			String charAfter = s.substring(psn + keyword.length(), psn + keyword.length() + 1);
 			return charAfter.compareTo("a") < 0 && charBefore.compareTo("a") < 0;
 		}
 	}
@@ -64,7 +52,6 @@ public class ChatbotMain {
 			return true;
 		}
 	}
-
 
 	public static String getInput(){
 		return inputSource.nextLine();
@@ -126,6 +113,5 @@ public class ChatbotMain {
 			}
 		return value;
 	}
-
 
 }
