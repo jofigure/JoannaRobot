@@ -5,10 +5,12 @@ public class Chatbot {
 	private String username;
 	private boolean chatting;
 	
-	private int familySize;
-	private boolean hasPets;
+	private String purpose;
 	private String setting;
-	private boolean Buying;
+	private int familySize;
+	private boolean forLiving;
+	private boolean hasPets;
+	private boolean buying;
 	
 	private Topic apt;
 	private Topic townhouse;
@@ -20,8 +22,12 @@ public class Chatbot {
 		townhouse = new ChatbotStephanie();
 		house = new JoannaChatbot();
 		land = new ChatbotKevin();
-		username = "Unknown User";
+		username = "";
 		chatting = true;
+		setting = "";
+		familySize = 0;
+		hasPets = false;
+		buying = false;
 	}
 	
 	public String getUsername() {
@@ -45,8 +51,9 @@ public class Chatbot {
 	}
 
 	public void startChatting() {
-		ChatbotMain.print("Hi! I am an intelligent machine that can respond to your input. Tell me your name.");
+		ChatbotMain.print("Welcome to JASK Real Estate! What is your name?");
 		username = ChatbotMain.getInput();
+		getInfo();
 		while(chatting) {
 			ChatbotMain.print("What would you like to talk about?");
 			String response = ChatbotMain.getInput();
@@ -63,6 +70,27 @@ public class Chatbot {
 			} else
 				ChatbotMain.print("I'm sorry. I don't understand.");
 		}
+	}
+	
+	public void getYesOrNo(String question, boolean field) {
+		ChatbotMain.print(question);
+		String response = ChatbotMain.getInput();
+		boolean YesOrNo = false;
+		while(!YesOrNo)
+			if(ChatbotMain.findKeyword(response, "yes", 0) >= 0) {
+				field = true;
+				YesOrNo = true;
+			} else if(ChatbotMain.findKeyword(response, "no", 0) >= 0) {
+				field = false;
+				YesOrNo = true;
+			} else {
+				ChatbotMain.print(question + " Yes or no?");
+				response = ChatbotMain.getInput();
+			}
+	}
+	
+	public void getInfo() {
+		getYesOrNo("residence?", forLiving);
 	}
 	
 }
