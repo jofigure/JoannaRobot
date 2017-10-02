@@ -92,5 +92,5 @@ public class Chatbot {
 	public void getInfo() {
 		getYesOrNo("residence?", forLiving);
 	}
-	
+	  
 }
