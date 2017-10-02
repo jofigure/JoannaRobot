@@ -33,7 +33,6 @@ public class ChatbotKevin implements Topic
 		return false;
 	}
 	
-	
 	public void talk(String initial) 
 	{
 		ChatbotMain.print("Hello, would you like to look at different lands available for purchase?");
