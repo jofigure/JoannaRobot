@@ -14,7 +14,7 @@ public class JoannaChatbot implements Topic {
 		goodbyeKeyword = "bye";
 		 niceKeyword = "thanks";
 		response = "";
-		String[] home =  { "Blue 3 floor house" ," Red 1 floor house" , "Wooden house", "Brick no basement house"}
+		String[] home =  { "Blue 3 floor house" ," Red 1 floor house" , "Wooden house", "Brick no basement house"};
 		houseListings = home;
 	}
 
@@ -24,13 +24,13 @@ public class JoannaChatbot implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
 		{
-				if(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= 0)
+				if(ChatbotMain.findKeyword(response, niceKeyword, 0) >= 0)
 				{
 					ChatbotMain.print("No problem! Glad to help! Anything else?");
 	
 					
 				}
-			
+				ChatbotMain.print("I see you're looking for a house. Does any of these seem of interest to you:");
 			
 		}
 		//access variables from other classes
