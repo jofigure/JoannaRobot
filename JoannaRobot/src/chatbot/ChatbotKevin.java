@@ -45,6 +45,10 @@ public class ChatbotKevin implements Topic
 				{
 					ChatbotMain.print("Thank you for your patronage. Please come by again for future deals.");
 				}
+				else
+				{
+					
+				}
 			}
 			else
 			{
