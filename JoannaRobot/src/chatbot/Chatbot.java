@@ -4,10 +4,22 @@ public class Chatbot {
 
 	private String username;
 	private boolean chatting;
-	private Topic annie;
+	
+	private int familySize;
+	private boolean hasPets;
+	private String setting;
+	private boolean Buying;
+	
+	private Topic apt;
+	private Topic townhouse;
+	private Topic house;
+	private Topic land;
 
 	public Chatbot() {
-		annie = new ChatbotAnnie();
+		apt = new ChatbotAnnie();
+		townhouse = new ChatbotStephanie();
+		house = new JoannaChatbot();
+		land = new ChatbotKevin();
 		username = "Unknown User";
 		chatting = true;
 	}
@@ -16,8 +28,20 @@ public class Chatbot {
 		return username;
 	}
 	
-	public Topic getAnnie() {
-		return annie;
+	public Topic getApt() {
+		return apt;
+	}
+
+	public Topic getTownhouse() {
+		return townhouse;
+	}
+
+	public Topic getHouse() {
+		return house;
+	}
+
+	public Topic getLand() {
+		return land;
 	}
 
 	public void startChatting() {
@@ -26,11 +50,18 @@ public class Chatbot {
 		while(chatting) {
 			ChatbotMain.print("What would you like to talk about?");
 			String response = ChatbotMain.getInput();
-			if(annie.isTriggered(response)) {
+			if(apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response) || land.isTriggered(response)) {
 				chatting = false;
-				annie.talk(response);
+				if(apt.isTriggered(response))
+					apt.talk(response);
+				else if(townhouse.isTriggered(response))
+					townhouse.talk(response);
+				else if(house.isTriggered(response))
+					house.talk(response);
+				else if(land.isTriggered(response))
+					land.talk(response);
 			} else
-				ChatbotMain.print("I'm sorry. I don't understand. I never said I was perfect.");
+				ChatbotMain.print("I'm sorry. I don't understand.");
 		}
 	}
 	
