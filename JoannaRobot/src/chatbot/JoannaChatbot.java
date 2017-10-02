@@ -4,33 +4,34 @@ public class JoannaChatbot implements Topic {
 	
 	private String[] keywords;
 	private String goodbyeKeyword;
-	private String secretKeyword;
+	private String niceKeyword;
 	private String response;
-
+	private String[] houseListings;
 	public JoannaChatbot() {
 		
-		String[] temp = {"stuff","things","whatever", "nothing"};
+		String[] temp = {"total control","remodel" , "privacy","own", "single family"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "pug";
+		 niceKeyword = "thanks";
 		response = "";
+		String[] home =  { "Blue 3 floor house" ," Red 1 floor house" , "Wooden house", "Brick no basement house"}
+		houseListings = home;
 	}
 
 	@Override
 	public void talk(String initialInput) {
-		ChatbotMain.print("Hey! So you want to talk about generic boring things, huh? I love talking about that. So tell me something.");
+		ChatbotMain.print("Hi, Welcome to JASK real estate! You've been directed to the House Department. ");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
 		{
-			if (ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
-				
-				ChatbotMain.print("I can't even. I love pugs so much. Wow. You are so cool.");
-				response = ChatbotMain.getInput();
-			}
-			else {
-				ChatbotMain.print("Yeah. That's pretty cool.But there are things I like even more. Tell me something else.");
-				response = ChatbotMain.getInput();
-			}
+				if(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= 0)
+				{
+					ChatbotMain.print("No problem! Glad to help! Anything else?");
+	
+					
+				}
+			
+			
 		}
 		//access variables from other classes
 		ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername()+ "!");
