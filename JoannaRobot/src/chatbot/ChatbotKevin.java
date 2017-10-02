@@ -8,7 +8,6 @@ public class ChatbotKevin implements Topic
 	private String yesKeyword;
 	private String sellKeyword;
 	private String response;
-	private String[] sellResponse;
 
 	public ChatbotKevin() 
 	{
@@ -18,8 +17,6 @@ public class ChatbotKevin implements Topic
 		yesKeyword = "no";
 		sellKeyword = "buy";
 		response = "";
-		String[] sellKeys = {"buy"};
-		sellResponse = sellKeys;
 	}
 	public boolean isTriggered(String response) 
 	{
@@ -33,7 +30,7 @@ public class ChatbotKevin implements Topic
 		return false;
 	}
 	
-	public void talk(String initial) 
+	public void talk(String initial)
 	{
 		ChatbotMain.print("Hello, would you like to look at different lands available for purchase?");
 		response = ChatbotMain.getInput();
