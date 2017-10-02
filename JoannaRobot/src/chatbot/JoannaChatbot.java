@@ -17,7 +17,7 @@ public class JoannaChatbot implements Topic {
 	}
 
 	@Override
-	public void talk(String response) {
+	public void talk(String initialInput) {
 		ChatbotMain.print("Hey! So you want to talk about generic boring things, huh? I love talking about that. So tell me something.");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
