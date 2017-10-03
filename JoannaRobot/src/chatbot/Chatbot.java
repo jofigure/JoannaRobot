@@ -5,8 +5,6 @@ public class Chatbot {
 	private String username;
 	private boolean chatting;
 	
-	private String purpose;
-	private String setting;
 	private int familySize;
 	private boolean forLiving;
 	private boolean hasPets;
@@ -24,8 +22,8 @@ public class Chatbot {
 		land = new ChatbotKevin();
 		username = "";
 		chatting = true;
-		setting = "";
 		familySize = 0;
+		forLiving = false;
 		hasPets = false;
 		buying = false;
 	}
@@ -33,7 +31,19 @@ public class Chatbot {
 	public String getUsername() {
 		return username;
 	}
-	
+	public int getFamilySize() {
+		return familySize;
+	}
+	public boolean getForLiving() {
+		return forLiving;
+	}
+	public boolean getHasPets() {
+		return hasPets;
+	}
+	public boolean getBuying() {
+		return buying;
+	}
+		
 	public Topic getApt() {
 		return apt;
 	}
@@ -90,7 +100,11 @@ public class Chatbot {
 	}
 	
 	public void getInfo() {
-		getYesOrNo("residence?", forLiving);
+		getYesOrNo("Are you looking for a residence?", forLiving);
+		if(forLiving) {
+			ChatbotMain.print("");
+		}
+		
 	}
 	  
 }
