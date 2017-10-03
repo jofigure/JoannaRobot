@@ -22,10 +22,6 @@ public class Chatbot {
 		land = new ChatbotKevin();
 		username = "";
 		chatting = true;
-		familySize = 0;
-		forLiving = false;
-		hasPets = false;
-		buying = false;
 	}
 	
 	public String getUsername() {
@@ -82,7 +78,7 @@ public class Chatbot {
 		}
 	}
 	
-	public void getYesOrNo(String question, boolean field) {
+	public void changeBoolean(String question, boolean field) {
 		ChatbotMain.print(question);
 		String response = ChatbotMain.getInput();
 		boolean YesOrNo = false;
@@ -100,9 +96,12 @@ public class Chatbot {
 	}
 	
 	public void getInfo() {
-		getYesOrNo("Are you looking for a residence?", forLiving);
+		changeBoolean("Are you looking for a residence?", forLiving);
 		if(forLiving) {
-			ChatbotMain.print("");
+			ChatbotMain.print("How big is your family?");
+			familySize = ChatbotMain.getIntegerInput();
+			changeBoolean("Do you have any pets?", hasPets);
+			changeBoolean("Are you looking to buy?", buying);
 		}
 		
 	}
