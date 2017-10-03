@@ -98,18 +98,19 @@ public class ChatbotMain {
 		System.out.print(printString);
 	}
 
-	public static int getIntegerInput() {
-		print("Please enter an integer.");
-		String integerString = getInput();
-		boolean isInteger = false;
+	public static int getPositiveNumInput() {
+		print("Please enter an number.");
+		String numString = getInput();
+		boolean isNum = false;
 		int value = 0;
-		while(!isInteger)
+		while(!isNum)
 			try {
-				value = Integer.parseInt(integerString);
-				isInteger = true;
+				value = Integer.parseInt(numString);
+				if(value > 0)
+					isNum = true;
 			} catch(NumberFormatException e) {
-				print("You must enter an integer. You better try again.");
-				integerString = getInput();
+				print("You must enter an number greater than 0. Please try again.");
+				numString = getInput();
 			}
 		return value;
 	}

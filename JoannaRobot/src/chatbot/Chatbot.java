@@ -78,30 +78,29 @@ public class Chatbot {
 		}
 	}
 	
-	public void changeBoolean(String question, boolean field) {
+	public boolean YesNo(String question) {
 		ChatbotMain.print(question);
 		String response = ChatbotMain.getInput();
 		boolean YesOrNo = false;
 		while(!YesOrNo)
 			if(ChatbotMain.findKeyword(response, "yes", 0) >= 0) {
-				field = true;
-				YesOrNo = true;
+				return true;
 			} else if(ChatbotMain.findKeyword(response, "no", 0) >= 0) {
-				field = false;
-				YesOrNo = true;
+				return false;
 			} else {
 				ChatbotMain.print(question + " Yes or no?");
 				response = ChatbotMain.getInput();
 			}
+		return false;
 	}
 	
 	public void getInfo() {
-		changeBoolean("Are you looking for a residence?", forLiving);
+		forLiving = YesNo("Are you looking for a residence?");
 		if(forLiving) {
 			ChatbotMain.print("How big is your family?");
-			familySize = ChatbotMain.getIntegerInput();
-			changeBoolean("Do you have any pets?", hasPets);
-			changeBoolean("Are you looking to buy?", buying);
+			familySize = ChatbotMain.getPositiveNumInput();
+			hasPets = YesNo("Do you have any pets?");
+			buying = YesNo("Are you looking to buy?");
 		}
 	}
 } 
