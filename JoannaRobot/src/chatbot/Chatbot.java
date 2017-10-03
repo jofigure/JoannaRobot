@@ -103,7 +103,5 @@ public class Chatbot {
 			changeBoolean("Do you have any pets?", hasPets);
 			changeBoolean("Are you looking to buy?", buying);
 		}
-		
 	}
-	  
 } 
