@@ -61,31 +61,31 @@ public class Chatbot {
 		username = ChatbotMain.getInput();
 		collectInfo();
 		ChatbotMain.print("Are you looking for anything specific? If so, what?");
-		direct();
+		direct(this);
 	}
 	
-	public void direct() {
+	public void direct(Object caller) {
 		while(chatting) {
 			String response = ChatbotMain.getInput();
 			if(apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response) || land.isTriggered(response)) {
 				chatting = false;
-				if(apt.isTriggered(response))
+				if(apt.isTriggered(response) && !(caller instanceof ChatbotAnnie))
 					apt.talk(response);
-				else if(townhouse.isTriggered(response))
+				else if(townhouse.isTriggered(response) && !(caller instanceof ChatbotStephanie))
 					townhouse.talk(response);
-				else if(house.isTriggered(response))
+				else if(house.isTriggered(response) && !(caller instanceof JoannaChatbot))
 					house.talk(response);
-				else if(land.isTriggered(response))
+				else if(land.isTriggered(response) && !(caller instanceof ChatbotKevin))
 					land.talk(response);
 			} else
 				ChatbotMain.print("I'm sorry. I don't understand.");
 		}
 	}
 	
-	public void throwBack() {
+	public void throwBack(Object caller) {
 		chatting = true;
 		ChatbotMain.print("Then what is it that you are looking for?");
-		direct();
+		direct(caller);
 	}
 	
 	public void collectInfo() {
