@@ -60,8 +60,8 @@ public class Chatbot {
 		ChatbotMain.print("Welcome to JASK Real Estate! What is your name?");
 		username = ChatbotMain.getInput();
 		getInfo();
+		ChatbotMain.print("Are you looking for anything specific? If so, what?");
 		while(chatting) {
-			ChatbotMain.print("What would you like to talk about?");
 			String response = ChatbotMain.getInput();
 			if(apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response) || land.isTriggered(response)) {
 				chatting = false;
