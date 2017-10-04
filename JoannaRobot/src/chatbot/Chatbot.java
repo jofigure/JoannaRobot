@@ -59,8 +59,12 @@ public class Chatbot {
 	public void startChatting() {
 		ChatbotMain.print("Welcome to JASK Real Estate! What is your name?");
 		username = ChatbotMain.getInput();
-		getInfo();
+		collectInfo();
 		ChatbotMain.print("Are you looking for anything specific? If so, what?");
+		direct();
+	}
+	
+	public void direct() {
 		while(chatting) {
 			String response = ChatbotMain.getInput();
 			if(apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response) || land.isTriggered(response)) {
@@ -78,29 +82,19 @@ public class Chatbot {
 		}
 	}
 	
-	public boolean YesNo(String question) {
-		ChatbotMain.print(question);
-		String response = ChatbotMain.getInput();
-		boolean YesOrNo = false;
-		while(!YesOrNo)
-			if(ChatbotMain.findKeyword(response, "yes", 0) >= 0) {
-				return true;
-			} else if(ChatbotMain.findKeyword(response, "no", 0) >= 0) {
-				return false;
-			} else {
-				ChatbotMain.print(question + " Yes or no?");
-				response = ChatbotMain.getInput();
-			}
-		return false;
+	public void throwBack() {
+		chatting = true;
+		ChatbotMain.print("Then what is it that you are looking for?");
+		direct();
 	}
 	
-	public void getInfo() {
-		forLiving = YesNo("Are you looking for a residence?");
+	public void collectInfo() {
+		forLiving = ChatbotMain.YesNo("Are you looking for a residence?");
 		if(forLiving) {
 			ChatbotMain.print("How big is your family?");
 			familySize = ChatbotMain.getPositiveNumInput();
-			hasPets = YesNo("Do you have any pets?");
-			buying = YesNo("Are you looking to buy?");
+			hasPets = ChatbotMain.YesNo("Do you have any pets?");
+			buying = ChatbotMain.YesNo("Are you looking to buy?");
 		}
 	}
 } 
