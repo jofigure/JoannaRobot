@@ -11,6 +11,8 @@ public class ChatbotStephanie implements Topic {
 	private String currReason;
 	private String[] feelings;
 	private String currFeel;
+	private int price;
+	private int numNo;
 	
 	public ChatbotStephanie() {
 		String[] temp = {"townhouse", "town", "community", "row house"};
@@ -18,12 +20,13 @@ public class ChatbotStephanie implements Topic {
 		purchaseKeyword = "yes";
 		nopeKeyword = "no";
 		response = "";
-		townhouse = "2 family townhome with 6 beds and 4 baths. ";
-		String[] why = {"size", "bed", "bath","big", "small"};
+		townhouse = "2 family townhome with 6 beds and 4 baths for $2600 per month. ";
+		String[] why = {"size","big", "small"};
 		reasons = why;
 		String[] feel = {"meh", "good", "great", "not bad", "okay", "nah", "no thanks"};
 		feelings = feel;
-		
+		price = 2600;
+		numNo = 0;
 	}
 
 	public void debate(String initial ) {
@@ -31,10 +34,10 @@ public class ChatbotStephanie implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, nopeKeyword, 0) == -1) {
 			getWord(response);
-			if (currReason == "big") // miss or
-				ChatbotMain.print("How is it too " + currReason + "?");
+			if (currReason == "size") // miss or
+				ChatbotMain.print("What is wrong with the " + currReason + "?"); 
 			else
-				ChatbotMain.print("What is wrong with the " + currReason + "?");
+				ChatbotMain.print("How is it too " + currReason + "?");
 			response = ChatbotMain.getInput();
 			int familySize = ChatbotMain.chatbot.getFamilySize();
 			if (familySize >= 5)
@@ -43,14 +46,16 @@ public class ChatbotStephanie implements Topic {
 				ChatbotMain.print("I see that you have a family size of " + familySize + ". There is always the option of renting some of the space out to other families. How about that?");
 			response = ChatbotMain.getInput();
 			if (currFeel == "meh")
-				ChatbotMain.print("I can discount the price to $$$$");
-			else
-				ChatbotMain.print("So would you like to make the purchase");
+				numNo ++;
+				discPrice(price);
+				ChatbotMain.print("I can discount the price to " + price + ".");
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, purchaseKeyword, 0) >= 0)
-				ChatbotMain.print("Thank you for purchasing this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");
+				ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");
 			else
-				ChatbotMain.print("I will lower is even more to $$$");
+				numNo ++;
+				ChatbotMain.print("I will lower it even more to " + price + ".");
+			response = ChatbotMain.getInput();
 		}
 		ChatbotMain.print("Sorry to hear that you're not interested in townhouses, you are really missing out " + ChatbotMain.chatbot.getUsername() + "!");
 		ChatbotMain.chatbot.startChatting();
@@ -61,10 +66,10 @@ public class ChatbotStephanie implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, nopeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, purchaseKeyword, 0) >= 0)
-				ChatbotMain.print("There is one townhouse for sale right now and it is a " + townhouse + "Would you be interested in purchasing this?");
+				ChatbotMain.print("There is one townhouse for rent right now and it is a " + townhouse + "Would you be interested in renting this?");
 			response = ChatbotMain.getInput();
 				if(ChatbotMain.findKeyword(response, purchaseKeyword, 0) >= 0)
-				ChatbotMain.print("Thank you for purchasing this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");		
+				ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");		
 			else
 				ChatbotMain.print("You are not answering my question.");
 			response = ChatbotMain.getInput();
@@ -76,6 +81,8 @@ public class ChatbotStephanie implements Topic {
 		for(int i = 0; i < keywords.length; i++)
 			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0)
 				return true;
+		if(!ChatbotMain.chatbot.getBuying())
+			return true;
 		return false;
 	}
 	
@@ -92,5 +99,14 @@ public class ChatbotStephanie implements Topic {
 				currFeel = feelings[i];
 				return currFeel;
 	}
+	
+	public void discPrice(int initialPrice) {
+		initialPrice = price;
+		while (numNo <= 4)
+			price = price - 100;
+		if(numNo > 4)
+			ChatbotMain.print("This is definitely your loss. I hope you have a fine day.");
+	}
+		
 	
 }
