@@ -12,6 +12,7 @@ public class ChatbotKevin implements Topic
 	private String[] goodResponses;
 	private String[] badResponses;
 	private String endResponse;
+	private String farmOrParking;
 	private String finalizeResponse;
 
 	public ChatbotKevin() 
@@ -19,7 +20,7 @@ public class ChatbotKevin implements Topic
 		String[] keys = {"land", "lots", "plot"};
 		keywords = keys;
 		noKeyword = "no";
-		yesKeyword = "no";
+		yesKeyword = "yes";
 		sellKeyword = "buy";
 		response = "";
 		
@@ -32,6 +33,8 @@ public class ChatbotKevin implements Topic
 		endResponse = "Goodbye, ";
 		finalizeResponse = "";
 		
+		farmOrParking = "";
+		
 	}
 	
 	public boolean isTriggered(String response) 
@@ -43,8 +46,14 @@ public class ChatbotKevin implements Topic
 				return true;
 			}
 		}
+		if (!ChatbotMain.chatbot.getForLiving())
+		{
+			return true;
+		}
 		return false;
 	}
+	
+	
 	
 	public void finalizePurchase()
 	{
@@ -58,24 +67,28 @@ public class ChatbotKevin implements Topic
 		{
 			if (ChatbotMain.findKeyword(response, noKeyword, 0) >= 0)
 			{
-				ChatbotMain.print("I'm sorry for the inconvenience. Would be interested in looking at our townhouses, apartments, or houses?");
+				ChatbotMain.print("I'm sorry for the inconvenience. Perhaps you would be interested in our townhouses, apartments, or houses.");
+				ChatbotMain.chatbot.startChatting();
 			}
 			
 			if (patience > 5)
 			{
 				finalizeResponse = goodResponses[(int) (Math.random()*goodResponses.length)] + ChatbotMain.chatbot.getUsername() + ".";
 				patience--;
+				ChatbotMain.print(finalizeResponse);
 				response = ChatbotMain.getInput();
 			}
 			if (patience > 0 && patience <6)
 			{
 				finalizeResponse = badResponses[(int) (Math.random()*badResponses.length)] + ChatbotMain.chatbot.getUsername() + ".";
 				patience--;
+				ChatbotMain.print(finalizeResponse);
 				response = ChatbotMain.getInput();
 			}
 			else
 			{
 				finalizeResponse = endResponse + ChatbotMain.chatbot.getUsername() + ".";
+				ChatbotMain.print(finalizeResponse);
 			}
 		}
 	}
@@ -90,19 +103,29 @@ public class ChatbotKevin implements Topic
 			ChatbotMain.print("Well, you need to specify your choice. Would you like a farm or a parking lot?");
 			response = ChatbotMain.getInput();
 			
-			if
+			// take out the keyword
+			farmOrParking = response.substring(response.indexOf("a") + 1, response.length());
+			
+			if (farmOrParking == "farm")
 			{
+				ChatbotMain.print("So you would like a " + farmOrParking + "? Unfortunately, we only have an alfalfa ranch available for $4,100,00 in Butte Valley. Do you still want it?");
+				response = ChatbotMain.getInput();
 				
-			}
-			if (ChatbotMain.findKeyword(response, sellKeyword, 0) >= 0)
-			{
-				finalizePurchase();
+				if (ChatbotMain.findKeyword(response, sellKeyword, 0) >= 0 || ChatbotMain.findKeyword(response, yesKeyword, 0) >= 0)
+				{
+					finalizePurchase();
+				}
 			}
 			else
 			{
-				ChatbotMain.print("Are there any specific lands you are interested in?");
+				if (farmOrParking == "parking lot")
+				{
+					ChatbotMain.print("So you would like a " + farmOrParking + "? Sorry " + ChatbotMain.chatbot.getUsername() + ", but all parking lots have already been sold. Please come back another time.");
+				}
+				
+				ChatbotMain.print("Please specify your choice, " + ChatbotMain.chatbot.getUsername() + ".");
+				response = ChatbotMain.getInput();
 			}
-			response = ChatbotMain.getInput();
 		}
 		ChatbotMain.print("I'm sorry for not having property which appeals to you. Please come by again when new purchases are available, " + ChatbotMain.chatbot.getUsername() + ".");
 		ChatbotMain.chatbot.startChatting();
