@@ -53,7 +53,7 @@ public class ChatbotStephanie implements Topic {
 			if(ChatbotMain.findKeyword(response, purchaseKeyword, 0) >= 0)
 				ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");
 			else
-				numNo ++;
+				numNo ++; 
 				ChatbotMain.print("I will lower it even more to " + price + ".");
 			response = ChatbotMain.getInput();
 		}
