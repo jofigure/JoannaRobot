@@ -48,7 +48,7 @@ public class ChatbotAnnie implements Topic {
 	}
 	
 	public void list() {
-		
+		 
 	}
  
 }

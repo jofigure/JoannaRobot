@@ -80,7 +80,7 @@ public class Chatbot {
 			} else
 				ChatbotMain.print("I'm sorry. I don't understand.");
 		}
-	}
+	} 
 	
 	public void throwBack(Object caller) {
 		chatting = true;
