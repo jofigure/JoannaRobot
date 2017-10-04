@@ -33,7 +33,7 @@ public class ChatbotAnnie implements Topic {
 			ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername() + "!");
 			ChatbotMain.chatbot.startChatting();
 		} else 
-			ChatbotMain.chatbot.throwBack();
+			ChatbotMain.chatbot.throwBack(this);
 	}
 
 	public boolean isTriggered(String response) {
@@ -48,7 +48,7 @@ public class ChatbotAnnie implements Topic {
 	}
 	
 	public void list() {
-		
+		 
 	}
  
 }
