@@ -19,10 +19,15 @@ public class ChatbotAnnie implements Topic {
 	}
 
 	public void talk(String initial) {
-		ChatbotMain.print("It looks like you're in the market for an apartment. Am I correct?");
+		if(ChatbotMain.chatbot.getForLiving())
+			ChatbotMain.print("It looks like you may be in the market for an apartment. Am I correct?");
+		else
+			ChatbotMain.print("I thought you said you weren't looking for a residence. Would you like to update your information?");
 		response = ChatbotMain.getInput();
 		if(ChatbotMain.findKeyword(response, "yes", 0) >= 0) {
-			while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			if(!ChatbotMain.chatbot.getForLiving())
+				ChatbotMain.chatbot.reEvaluate();
+			else while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 				for(int i = 0; i < moreKeywords.length; i++)
 					if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0)
 						list();
@@ -37,13 +42,11 @@ public class ChatbotAnnie implements Topic {
 	}
 
 	public boolean isTriggered(String response) {
-		if(ChatbotMain.chatbot.getForLiving()) {
-			for(int i = 0; i < keywords.length; i++)
-				if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0)
-					return true;
-			if(ChatbotMain.chatbot.getFamilySize() < 4 && !ChatbotMain.chatbot.getHasPets())
+		for(int i = 0; i < keywords.length; i++)
+			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0)
 				return true;
-		}
+		if(ChatbotMain.chatbot.getFamilySize() < 4 && !ChatbotMain.chatbot.getHasPets())
+			return true;
 		return false;
 	}
 	
