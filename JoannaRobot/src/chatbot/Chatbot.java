@@ -67,14 +67,15 @@ public class Chatbot {
 	public void direct(Object caller) {
 		while(chatting) {
 			String response = ChatbotMain.getInput();
-			if(apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response) || land.isTriggered(response)) {
+			if(!forLiving && land.isTriggered(response) && !(caller instanceof ChatbotKevin)) {
+				chatting = false;
+				land.talk(response);
+			} else if(forLiving && (apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response))) {
 				chatting = false;
 				if(apt.isTriggered(response) && !(caller instanceof ChatbotAnnie))
 					apt.talk(response);
 				else if(townhouse.isTriggered(response) && !(caller instanceof ChatbotStephanie))
 					townhouse.talk(response);
-				else if(land.isTriggered(response) && !(caller instanceof ChatbotKevin))
-					land.talk(response);
 				else if(house.isTriggered(response) && !(caller instanceof JoannaChatbot))
 					house.talk(response);
 			} else
