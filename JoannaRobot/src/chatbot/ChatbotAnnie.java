@@ -107,5 +107,4 @@ public class ChatbotAnnie implements Topic {
 		return false;
 	}
 
- 
 }

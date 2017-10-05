@@ -101,7 +101,7 @@ public class ChatbotMain {
 	public static int getPositiveNumInput() {
 		return ChatbotAnnie.getPositiveNumInput();
 	}
-	
+
 	public static boolean YesNo(String question) {
 		return ChatbotAnnie.YesNo(question);
 	}
