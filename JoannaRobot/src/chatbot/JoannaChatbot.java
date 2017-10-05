@@ -3,13 +3,16 @@ package chatbot;
 public class JoannaChatbot implements Topic {
 	
 	private String[] keywords1;
-	private String[] keywords2;
+	private String[] pleading; 
 	private String[] keywords3;
 	private String goodbyeKeyword;
 	private String niceKeyword;
 	private String response;
 	private String[] houseListings;
 	private boolean pool;
+	private int keepPlead;
+	
+	
 	public JoannaChatbot() {
 		
 		String[] temp = {"total control","remodel" , "privacy","own", "single family" ,"house"};
@@ -20,9 +23,9 @@ public class JoannaChatbot implements Topic {
 		String[] home =  { "Blue 3 floor house" ," Red 1 floor house" , "Wooden house", "Brick no basement house"};
 		houseListings = home;
 		pool = false;
-		String[] temp2 = { "yes","see", "like to","okay"};
-		keywords2 = temp2;
-
+		String[] adj = { "Blue","Red", "Wooden", "Brick", "no basement", "1" , "2", "3"  ,"4"};
+		keywords3 = adj;
+		keepPlead= -1;
 	}
 
 	@Override
@@ -35,12 +38,21 @@ public class JoannaChatbot implements Topic {
 	
 		if(ChatbotMain.findKeyword(response,"no" , 0) >=0)
 		{
-			
+			ChatbotMain.print( "So if buying a house isn't for you.");
+			ChatbotMain.chatbot.throwBack(this);
 		}
 		else
 		{	
-			ChatbotMain.print( "Sorry please input an apporiprate response.");
-
+			while(ChatbotMain.findKeyword(response,"yes" , 0) ==-1)
+			{
+				ChatbotMain.print( getPleads());
+				if(pleading[keepPlead].equals(pleading[2]))
+				{
+					return;
+					
+				}
+			
+			}
 			response = ChatbotMain.getInput();
 		}
 		
@@ -53,20 +65,9 @@ public class JoannaChatbot implements Topic {
 					
 					ChatbotMain.print( "No problem! Glad to help! Anything else?");
 
-					
+					break;
 				}
-				ChatbotMain.print(" Does any of these seem of interest to you:" );
-				
-				for(int i =0; i< houseListings.length; i++)
-				{
-					int Num = i+1;
-					ChatbotMain.print( Num + ". "  + houseListings[i]);
-					String[] temp = { "Blue","Red", "Wooden", "Brick", "no basement", "1" , "2", "3"  ,"4"};
-					keywords3 = temp;
-					
-				}
-				response = ChatbotMain.getInput();
-			
+				listOptions();
 		}
 		
 		
@@ -77,8 +78,25 @@ public class JoannaChatbot implements Topic {
 		ChatbotMain.chatbot.startChatting();
 	}
 
+	private void listOptions() {
+		
+		ChatbotMain.print(" Does any of these seem of interest to you:" );
+		
+		for(int i =0; i< houseListings.length; i++)
+		{
+			int Num = i+1;
+			ChatbotMain.print( Num + ". "  + houseListings[i]);
+			
+			
+		}
+		response = ChatbotMain.getInput();
+		
+	}
+
 	@Override
 	public boolean isTriggered(String response) {
+		String[] pleads = {"Why aren't you interested in a house?", "Houses are great for " + convertFam() + "people" , "You build your own personal pool in the backyard. Would you like one?"};
+		pleading = pleads;
 		for(int i = 0; i< keywords1.length; i++)
 		{
 			if(ChatbotMain.findKeyword(response, keywords1[i], 0) >= 0)
@@ -97,21 +115,50 @@ public class JoannaChatbot implements Topic {
 		return false;
 	}
 
+	
+	public String getPleads()
+	{
+		keepPlead++;
+		if(keepPlead==0)
+		{	
+			return pleading[keepPlead];
+			
+			
+		}
+		
+		else if(keepPlead==1)
+		{	
+			return pleading[keepPlead];
+			
+			
+		}
+		
+		else if(keepPlead==2)
+		{	
+			
+			return pleading[keepPlead];
+			
+			
+		}
+		else {
+			return "?";
+		}
+	}
+ 
+
+public String convertFam()
+{
+
+	
+ String str =String.valueOf(ChatbotMain.chatbot.getFamilySize());  
+	return str;
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+}
 
 
 
