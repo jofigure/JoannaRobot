@@ -99,47 +99,11 @@ public class ChatbotMain {
 	}
 
 	public static int getPositiveNumInput() {
-		print("Please enter a number.");
-		String numString = getInput();
-		boolean isNum = false;
-		int value = 0;
-		while(!isNum)
-			try {
-				value = Integer.parseInt(numString);
-				if(value > 0)
-					isNum = true;
-				else {
-					print("You must enter a number greater than 0. Please try again.");
-					numString = getInput();
-				}
-			} catch(NumberFormatException e) {
-				print("You must enter a number. Please try again.");
-				numString = getInput();
-			}
-		return value;
+		return ChatbotAnnie.getPositiveNumInput();
 	}
 	
 	public static boolean YesNo(String question) {
-		print(question);
-		String[] responses = {question + " Yes or no?", "Can you please just answer my question?", "It's a simple yes or no question. " + question,"I'm getting annoyed; this isn't even a hard question. " + question.toUpperCase(), "You know what? Go find somewhere else to buy a house. I am tired and you are not answering my question, goodbye!"};
-		int notAnswering = 0;
-		String response = getInput();
-		boolean YesOrNo = false;
-		while(!YesOrNo)
-			if(findKeyword(response, "yes", 0) >= 0) {
-				return true;
-			} else if(findKeyword(response, "no", 0) >= 0) {
-				return false;
-			} else {
-				print(responses[notAnswering]);
-				if(notAnswering < 4) {
-					response = getInput();
-					notAnswering++;
-				} else {
-					System.exit(0);			
-				}
-			}
-		return false;
+		return ChatbotAnnie.YesNo(question);
 	}
 	
 
