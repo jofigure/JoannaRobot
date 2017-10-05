@@ -19,26 +19,26 @@ public class ChatbotAnnie implements Topic {
 	}
 
 	public void talk(String initial) {
-		if(ChatbotMain.chatbot.getForLiving())
+		if(ChatbotMain.chatbot.getForLiving()) {
 			ChatbotMain.print("It looks like you may be in the market for an apartment. Am I correct?");
-		else
-			ChatbotMain.print("I thought you said you weren't looking for a residence. Would you like to update your information?");
-		response = ChatbotMain.getInput();
-		if(ChatbotMain.findKeyword(response, "yes", 0) >= 0) {
-			if(!ChatbotMain.chatbot.getForLiving())
-				ChatbotMain.chatbot.reEvaluate();
-			else while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			response = ChatbotMain.getInput();
+			while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
 				for(int i = 0; i < moreKeywords.length; i++)
 					if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0)
 						list();
-					else {
+					else
 						response = ChatbotMain.getInput();
-					}
-			}
 			ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername() + "!");
 			ChatbotMain.chatbot.startChatting();
-		} else 
-			ChatbotMain.chatbot.throwBack(this);
+		} else {
+			ChatbotMain.print("I thought you said you weren't looking for a residence. Would you like to update your information?");
+			response = ChatbotMain.getInput();
+			if(ChatbotMain.findKeyword(response, "yes", 0) >= 0)
+				if(!ChatbotMain.chatbot.getForLiving())
+					ChatbotMain.chatbot.reEvaluate();
+			else
+				ChatbotMain.chatbot.throwBack(this);
+		}
 	}
 
 	public boolean isTriggered(String response) {
