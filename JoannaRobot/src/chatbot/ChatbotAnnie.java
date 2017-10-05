@@ -86,8 +86,8 @@ public class ChatbotAnnie implements Topic {
 		ChatbotMain.print(question);
 		String[] responses = {question + " Yes or no?", "Can you please just answer my question?", "It's a simple yes or no question. " + question, "I'm getting annoyed; this isn't even a hard question. " + question.toUpperCase(), "You know what? Go find somewhere else to buy a house. I am tired and you are not answering my question, goodbye!"};
 		String response = ChatbotMain.getInput();
-		boolean YesOrNo = false;
-		while(!YesOrNo)
+		boolean yesOrNo = false;
+		while(!yesOrNo)
 			if(ChatbotMain.findKeyword(response, "yes", 0) >= 0 || ChatbotMain.findKeyword(response, "no", 0) >= 0) {
 				if(annoyedLevel > 0)
 					annoyedLevel--;
@@ -95,6 +95,7 @@ public class ChatbotAnnie implements Topic {
 					return true;
 				else if(ChatbotMain.findKeyword(response, "no", 0) >= 0)
 					return false;
+				yesOrNo = true;
 			} else {
 				ChatbotMain.print(responses[annoyedLevel]);
 				if(annoyedLevel < 4) {
