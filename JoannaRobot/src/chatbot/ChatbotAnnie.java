@@ -44,7 +44,7 @@ public class ChatbotAnnie implements Topic {
 		} else {
 			mistake();
 		}
-		ChatbotMain.chatbot.throwBack(this);
+		ChatbotMain.chatbot.throwBack();
 	}
 
 	public boolean isTriggered(String response) {
@@ -86,7 +86,7 @@ public class ChatbotAnnie implements Topic {
 	
 	public static boolean YesNo(String question) {
 		ChatbotMain.print(question);
-		String[] responses = {question + " Yes or no?", "Can you please just answer my question?", "It's a simple yes or no question. " + question, "I'm getting annoyed; this isn't even a hard question. " + question.toUpperCase(), "You know what? Go find somewhere else to buy a house. I am tired and you are not answering my question, goodbye!"};
+		String[] responses = {question + " Yes or no?", "Can you please just answer my question?", "It's a simple yes or no question. " + question, "I'm getting annoyed; this isn't even a hard question. ", question.toUpperCase(), "You know what? Go find somewhere else to buy a house. I am tired and you are not answering my question, goodbye!"};
 		String response = ChatbotMain.getInput();
 		boolean yesOrNo = false;
 		while(!yesOrNo)
@@ -100,7 +100,7 @@ public class ChatbotAnnie implements Topic {
 				yesOrNo = true;
 			} else {
 				ChatbotMain.print(responses[annoyedLevel]);
-				if(annoyedLevel < 4) {
+				if(annoyedLevel < 5) {
 					response = ChatbotMain.getInput();
 					annoyedLevel++;
 				} else
@@ -119,7 +119,7 @@ public class ChatbotAnnie implements Topic {
 		if(YesNo("Would you like to update your information?"))
 			ChatbotMain.chatbot.evaluate();
 		else
-			ChatbotMain.chatbot.throwBack(ChatbotMain.chatbot);
+			ChatbotMain.chatbot.throwBack();
 	}
 	
 }

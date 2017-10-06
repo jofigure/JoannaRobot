@@ -52,7 +52,7 @@ public class JoannaChatbot implements Topic {
 				{
 					
 					ChatbotMain.print( "So if buying a house isn't for you.");
-				ChatbotMain.chatbot.throwBack(this);
+				ChatbotMain.chatbot.throwBack();
 					
 				}
 				

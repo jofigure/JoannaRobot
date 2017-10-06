@@ -155,6 +155,5 @@ public class ChatbotKevin implements Topic
 		{
 			ChatbotAnnie.mistake();
 		}
-		ChatbotMain.chatbot.throwBack(this);
 	}
 }

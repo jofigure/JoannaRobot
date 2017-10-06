@@ -62,20 +62,20 @@ public class Chatbot {
 		evaluate();
 	}
 	
-	public void direct(Object caller) {
+	public void direct() {
 		chatting = true;
 		while(chatting) {
 			String response = ChatbotMain.getInput();
-			if(land.isTriggered(response) && !(caller instanceof ChatbotKevin)) {
+			if(land.isTriggered(response)) {
 				chatting = false;
 				land.talk(response);
-			} else if(apt.isTriggered(response) && !(caller instanceof ChatbotAnnie)) {
+			} else if(apt.isTriggered(response)) {
 				chatting = false;
 				apt.talk(response);
-			} else if(townhouse.isTriggered(response) && !(caller instanceof ChatbotStephanie)) {
+			} else if(townhouse.isTriggered(response)) {
 				chatting = false;
 				townhouse.talk(response);
-			} else if(house.isTriggered(response) && !(caller instanceof JoannaChatbot)) {
+			} else if(house.isTriggered(response)) {
 				chatting = false;
 				house.talk(response);
 			} else
@@ -83,15 +83,15 @@ public class Chatbot {
 		}
 	} 
 	
-	public void throwBack(Object caller) {
+	public void throwBack() {
 		ChatbotMain.print("Then what is it that you are looking for?");
-		direct(caller);
+		direct();
 	}
 	
 	public void evaluate() {
 		collectInfo();
 		ChatbotMain.print("Are you looking for anything specific? If so, what?");
-		direct(this);
+		direct();
 	}
 	
 	public void collectInfo() {
