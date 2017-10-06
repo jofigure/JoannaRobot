@@ -15,7 +15,7 @@ public class ChatbotKevin implements Topic
 	private String endResponse;
 	private String finalizeResponse;
 	
-	private boolean farmAlreadySold;
+	boolean farmAlreadySold;
 	
 	private String farmKeyword;
 	private String parkingKeyword;
@@ -65,16 +65,16 @@ public class ChatbotKevin implements Topic
 		response = ChatbotMain.getInput();
 		if (ChatbotMain.findKeyword(response, yesKeyword, 0) >= 0)
 		{
-			if (farmAlreadySold = false)
+			if (this.farmAlreadySold == false)
 			{
 				ChatbotMain.print("Thank you for your patronage. Please come by again for future deals.");
-				farmAlreadySold = true;
+				this.farmAlreadySold = true;
 				ChatbotMain.chatbot.startChatting();
 			}
 			else
 			{
-				ChatbotMain.print("Sorry, but you have already bought our farm. Since you're so eager for more land, we'll notify you when farms are available.");
-				farmAlreadySold = true;
+				ChatbotMain.print("Sorry, but you have already bought our farm. Since you're so eager for more land, we'll be sure to stock up on more farms for sale.");
+				this.farmAlreadySold = true;
 				ChatbotMain.chatbot.startChatting();
 			}
 		}
