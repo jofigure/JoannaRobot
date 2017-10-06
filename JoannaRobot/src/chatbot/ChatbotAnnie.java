@@ -121,8 +121,5 @@ public class ChatbotAnnie implements Topic {
 		else
 			ChatbotMain.chatbot.throwBack(ChatbotMain.chatbot);
 	}
-
-	
-	
 	
 }
