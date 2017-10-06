@@ -36,24 +36,26 @@ public class JoannaChatbot implements Topic {
 	
 	
 	
-		if(ChatbotMain.findKeyword(response,"no" , 0) >=0)
+		while(ChatbotMain.findKeyword(response,"no" , 0) >=0)
 		{
-			ChatbotMain.print( "So if buying a house isn't for you.");
-			ChatbotMain.chatbot.throwBack(this);
-		}
-		else
-		{	
-			while(ChatbotMain.findKeyword(response,"yes" , 0) ==-1)
-			{
-				ChatbotMain.print( getPleads());
+			
+			ChatbotMain.print( getPleads());
+				response = ChatbotMain.getInput();
+				
+				if(ChatbotMain.findKeyword(response,"yes" , 0) >=0)
+						{
+							dontUnderstand("yes", "Cool!Let's buy houses!");
+							listOptions();
+						}
+				dontUnderstand("no", "I'm sorry. I don't understand.");
 				if(pleading[keepPlead].equals(pleading[2]))
 				{
-					return;
+					
+					ChatbotMain.print( "So if buying a house isn't for you.");
+				ChatbotMain.chatbot.throwBack(this);
 					
 				}
-			
-			}
-			response = ChatbotMain.getInput();
+				
 		}
 		
 	
@@ -95,7 +97,7 @@ public class JoannaChatbot implements Topic {
 
 	@Override
 	public boolean isTriggered(String response) {
-		String[] pleads = {"Why aren't you interested in a house?", "Houses are great for " + convertFam() + "people" , "You build your own personal pool in the backyard. Would you like one?"};
+		String[] pleads = {"Do you like houses?", "Houses are great for " + convertFam() + " people, right?" , "If you have a house,you can build your own personal pool in the backyard. Would you like one?"};
 		pleading = pleads;
 		for(int i = 0; i< keywords1.length; i++)
 		{
@@ -155,7 +157,15 @@ public String convertFam()
 }
 
 
-
+public String dontUnderstand(String word, String react) {
+	
+	while(ChatbotMain.findKeyword(response, word, 0) == -1) {
+		ChatbotMain.print(react);
+		break;
+	}
+	return word;
+	
+}
 
 
 }
