@@ -112,42 +112,49 @@ public class ChatbotKevin implements Topic
 	
 	public void talk(String initial)
 	{
-		ChatbotMain.print("Are you interested in the various lands available for purchase?");
-		response = ChatbotMain.getInput();
-		
-		while(ChatbotMain.findKeyword(response, yesKeyword, 0) >= 0) 
+		if (!ChatbotMain.chatbot.forLiving())
 		{
-			ChatbotMain.print("Well, you need to specify your choice. Would you like a farm or a parking lot?");
+			ChatbotMain.print("Are you interested in the various lands available for purchase?");
 			response = ChatbotMain.getInput();
 			
-			if (ChatbotMain.findKeyword(response, farmKeyword, 0) >= 0)
+			while(ChatbotMain.findKeyword(response, yesKeyword, 0) >= 0) 
 			{
-				ChatbotMain.print("So you would like a " + farmKeyword + "? Unfortunately, we only have an alfalfa ranch available for $4,100,00 in Butte Valley. Do you still want it?");
+				ChatbotMain.print("Well, you need to specify your choice. Would you like a farm or a parking lot?");
 				response = ChatbotMain.getInput();
 				
-				if (ChatbotMain.findKeyword(response, sellKeyword, 0) >= 0 || ChatbotMain.findKeyword(response, yesKeyword, 0) >= 0)
+				if (ChatbotMain.findKeyword(response, farmKeyword, 0) >= 0)
 				{
-					finalizePurchase();
-					return;
+					ChatbotMain.print("So you would like a " + farmKeyword + "? Unfortunately, we only have an alfalfa ranch available for $4,100,00 in Butte Valley. Do you still want it?");
+					response = ChatbotMain.getInput();
+					
+					if (ChatbotMain.findKeyword(response, sellKeyword, 0) >= 0 || ChatbotMain.findKeyword(response, yesKeyword, 0) >= 0)
+					{
+						finalizePurchase();
+						return;
+					}
 				}
-			}
-			else
-			{
-				if (ChatbotMain.findKeyword(response, parkingKeyword, 0) >= 0)
+				else
 				{
-					ChatbotMain.print("So you would like a " + parkingKeyword + "? Sorry " + ChatbotMain.chatbot.getUsername() + ", but all parking lots have already been sold. Please come back another time.");
-					ChatbotMain.chatbot.startChatting();
-					return;
+					if (ChatbotMain.findKeyword(response, parkingKeyword, 0) >= 0)
+					{
+						ChatbotMain.print("So you would like a " + parkingKeyword + "? Sorry " + ChatbotMain.chatbot.getUsername() + ", but all parking lots have already been sold. Please come back another time.");
+						ChatbotMain.chatbot.startChatting();
+						return;
+					}
+					
+					ChatbotMain.print("Please specify your choice, " + ChatbotMain.chatbot.getUsername() + ".");
+					response = ChatbotMain.getInput();
 				}
-				
-				ChatbotMain.print("Please specify your choice, " + ChatbotMain.chatbot.getUsername() + ".");
+				ChatbotMain.print("Please respond to my question, " + ChatbotMain.chatbot.getUsername() + ".");
 				response = ChatbotMain.getInput();
 			}
+				ChatbotMain.print("Goodbye, " + ChatbotMain.chatbot.getUsername() + ".");
+				ChatbotMain.chatbot.startChatting();
 		}
-		for (int i = 0; i < patienceMeter.length; i++)
+		else
 		{
-			ChatbotMain.print("Please respond to my question, " + ChatbotMain.chatbot.getUsername() + ".");
-			response = ChatbotMain.getInput();
+			ChatbotAnnie.mistake();
 		}
+		ChatbotMain.chatbot.throwBack(this);
 	}
 }
