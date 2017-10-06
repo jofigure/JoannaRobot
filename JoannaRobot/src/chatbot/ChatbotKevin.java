@@ -56,10 +56,6 @@ public class ChatbotKevin implements Topic
 				return true;
 			}
 		}
-		if (!ChatbotMain.chatbot.getForLiving())
-		{
-			return true;
-		}
 		return false;
 	}
 	

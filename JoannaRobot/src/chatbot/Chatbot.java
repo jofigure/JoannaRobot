@@ -65,26 +65,27 @@ public class Chatbot {
 	}
 	
 	public void direct(Object caller) {
+		chatting = true;
 		while(chatting) {
 			String response = ChatbotMain.getInput();
 			if(!forLiving && land.isTriggered(response) && !(caller instanceof ChatbotKevin)) {
 				chatting = false;
 				land.talk(response);
-			} else if(forLiving && (apt.isTriggered(response) || townhouse.isTriggered(response) || house.isTriggered(response))) {
+			} else if(apt.isTriggered(response) && !(caller instanceof ChatbotAnnie)) {
 				chatting = false;
-				if(apt.isTriggered(response) && !(caller instanceof ChatbotAnnie))
-					apt.talk(response);
-				else if(townhouse.isTriggered(response) && !(caller instanceof ChatbotStephanie))
-					townhouse.talk(response);
-				else if(house.isTriggered(response) && !(caller instanceof JoannaChatbot))
-					house.talk(response);
+				apt.talk(response);
+			} else if(townhouse.isTriggered(response) && !(caller instanceof ChatbotStephanie)) {
+				chatting = false;
+				townhouse.talk(response);
+			} else if(house.isTriggered(response) && !(caller instanceof JoannaChatbot)) {
+				chatting = false;
+				house.talk(response);
 			} else
 				ChatbotMain.print("I'm sorry. I don't understand.");
 		}
 	} 
 	
 	public void throwBack(Object caller) {
-		chatting = true;
 		ChatbotMain.print("Then what is it that you are looking for?");
 		direct(caller);
 	}
