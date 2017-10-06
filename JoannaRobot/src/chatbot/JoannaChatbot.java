@@ -57,7 +57,7 @@ public class JoannaChatbot implements Topic {
 				}
 				
 		}
-		
+		 
 	
 		
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
