@@ -105,5 +105,5 @@ public class ChatbotMain {
 	public static boolean YesNo(String question) {
 		return ChatbotAnnie.YesNo(question);
 	}
-	
+
 }

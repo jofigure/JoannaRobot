@@ -104,6 +104,6 @@ public class Chatbot {
 			buying = ChatbotMain.YesNo("Are you looking to buy?");
 		}
 	}
-	
+
 } 
  
