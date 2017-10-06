@@ -112,7 +112,7 @@ public class ChatbotKevin implements Topic
 	
 	public void talk(String initial)
 	{
-		if (!ChatbotMain.chatbot.forLiving())
+		if (!ChatbotMain.chatbot.getForLiving())
 		{
 			ChatbotMain.print("Are you interested in the various lands available for purchase?");
 			response = ChatbotMain.getInput();
