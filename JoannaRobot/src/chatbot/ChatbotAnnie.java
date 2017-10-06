@@ -58,7 +58,7 @@ public class ChatbotAnnie implements Topic {
 		for(int i = 0; i < keywords.length; i++)
 			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0)
 				return true;
-		if(ChatbotMain.chatbot.getFamilySize() <= 4 && !ChatbotMain.chatbot.getHasPets())
+		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && ChatbotMain.chatbot.getFamilySize() <= 4 && !ChatbotMain.chatbot.getHasPets())
 			return true;
 		return false;
 	}
