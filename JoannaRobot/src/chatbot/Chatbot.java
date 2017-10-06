@@ -59,16 +59,14 @@ public class Chatbot {
 	public void startChatting() {
 		ChatbotMain.print("Welcome to JASK Real Estate! What is your name?");
 		username = ChatbotMain.getInput();
-		collectInfo();
-		ChatbotMain.print("Are you looking for anything specific? If so, what?");
-		direct(this);
+		evaluate();
 	}
 	
 	public void direct(Object caller) {
 		chatting = true;
 		while(chatting) {
 			String response = ChatbotMain.getInput();
-			if(!forLiving && land.isTriggered(response) && !(caller instanceof ChatbotKevin)) {
+			if(land.isTriggered(response) && !(caller instanceof ChatbotKevin)) {
 				chatting = false;
 				land.talk(response);
 			} else if(apt.isTriggered(response) && !(caller instanceof ChatbotAnnie)) {
@@ -81,7 +79,7 @@ public class Chatbot {
 				chatting = false;
 				house.talk(response);
 			} else
-				ChatbotMain.print("I'm sorry. I don't understand.");
+				ChatbotMain.print("I'm sorry. I don't understand. Could you be more specific?");
 		}
 	} 
 	
@@ -90,8 +88,9 @@ public class Chatbot {
 		direct(caller);
 	}
 	
-	public void reEvaluate() {
+	public void evaluate() {
 		collectInfo();
+		ChatbotMain.print("Are you looking for anything specific? If so, what?");
 		direct(this);
 	}
 	

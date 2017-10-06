@@ -60,7 +60,7 @@ public class ChatbotStephanie implements Topic {
 		for(int i = 0; i < keywords.length; i++)
 			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0)
 				return true;
-		if(!ChatbotMain.chatbot.getBuying())
+		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && !ChatbotMain.chatbot.getBuying())
 			return true;
 		return false;
 	}
