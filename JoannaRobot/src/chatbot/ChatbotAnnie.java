@@ -42,7 +42,7 @@ public class ChatbotAnnie implements Topic {
 				ChatbotMain.chatbot.startChatting();
 			}
 		} else {
-			mistake(initial);
+			mistake();
 		}
 		ChatbotMain.chatbot.throwBack(this);
 	}
@@ -109,19 +109,17 @@ public class ChatbotAnnie implements Topic {
 		return false;
 	}
 	
-	public static boolean mistake(String initial) {
-		String response2 = initial;
+	public static void mistake() {
 		String wereWereNot = "";
-		if(ChatbotMain.chatbot)
-		ChatbotMain.print("I thought you said you " + "" + " looking for a residence. Would you like to update your information?");
-		response2 = ChatbotMain.getInput();
-		if(ChatbotMain.findKeyword(response2, "yes", 0) >= 0)
-			ChatbotMain.chatbot.reEvaluate();
-		else if(ChatbotMain.findKeyword(response2, "no", 0) == -1) {
-			ChatbotMain.print("I don't understand.");
-			response2 = ChatbotMain.getInput();
-		}
-
+		if(ChatbotMain.chatbot.getForLiving())
+			wereWereNot = "were";
+		else
+			wereWereNot = "weren't";
+		ChatbotMain.print("I thought you said you " + wereWereNot + " looking for a residence.");
+		if(YesNo("Would you like to update your information?"))
+			ChatbotMain.chatbot.evaluate();
+		else
+			ChatbotMain.chatbot.throwBack(ChatbotMain.chatbot);
 	}
 
 	
