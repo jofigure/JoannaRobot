@@ -106,5 +106,4 @@ public class ChatbotMain {
 		return ChatbotAnnie.YesNo(question);
 	}
 	
-
 }

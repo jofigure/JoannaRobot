@@ -1,7 +1,7 @@
 package chatbot;
 
 public class ChatbotAnnie implements Topic {
-	
+
 	private String[] keywords;
 	private String[] listings;
 	private String[] listingsInfo;

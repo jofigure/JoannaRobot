@@ -59,8 +59,6 @@ public class ChatbotKevin implements Topic
 		return false;
 	}
 	
-	
-	
 	public void finalizePurchase()
 	{
 		ChatbotMain.print("So, you would like to purchase this land? Are you sure?");
