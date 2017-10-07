@@ -45,9 +45,11 @@ public class ChatbotMain {
 			return true;
 		else {
 			for(int i = 0; i < negations.length; i++) {
-				String word = s.substring(psn - negations[i].length() - 1, psn);
-				if(word.compareTo(negations[i] + " ") == 0)
-					return false;
+				if(psn - negations[i].length() - 1 >= 0) {
+					String word = s.substring(psn - negations[i].length() - 1, psn);
+					if(word.compareTo(negations[i] + " ") == 0)
+						return false;
+				}
 			}
 			return true;
 		}

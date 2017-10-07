@@ -5,6 +5,7 @@ public class ChatbotAnnie implements Topic {
 	private String[] keywords;
 	private String[] listings;
 	private String[] listingsInfo;
+	private boolean isSuggestion;
 	private boolean[] onSale;
 	private int choice;
 	private static int annoyedLevel;
@@ -14,7 +15,7 @@ public class ChatbotAnnie implements Topic {
 	public ChatbotAnnie() {
 		String[] temp = {"apt", "apartment", "city", "flat", "condo", "condominium", "co-op"};
 		keywords = temp;
-		String[] temp2 = {"studio apartment", "one-bedroom condominium", "three-bedroom duplex", "two-bedroom loft"};
+		String[] temp2 = {"- studio apartment", "- one-bedroom condominium", "- three-bedroom duplex", "- two-bedroom loft"};
 		listings = temp2;
 		String[] temp3 = {"stuff"};
 		listingsInfo = temp3;
@@ -26,10 +27,24 @@ public class ChatbotAnnie implements Topic {
 		response = "";
 	}
 
+	public boolean isTriggered(String response) {
+		for(int i = 0; i < keywords.length; i++)
+			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0) {
+				isSuggestion = false;
+				return true;
+			}
+		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && ChatbotMain.chatbot.getFamilySize() <= 4 && !ChatbotMain.chatbot.getHasPets()) {
+			isSuggestion = true;
+			return true;
+		}
+		return false;
+	}
+		
 	public void talk(String initial) {
 		if(ChatbotMain.chatbot.getForLiving()) {
-			ChatbotMain.print("It looks like you may be in the market for an apartment. Am I correct?");
-			boolean lookingApt = YesNo("Are you looking for apartments?");
+			if(isSuggestion)
+				ChatbotMain.print("It looks like you may be in the market for an apartment. Am I correct?");
+			boolean lookingApt = YesNo("Would you like to look at apartments?");
 			if(lookingApt) {
 				while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 					ChatbotMain.print("Here are some listings that might be of interest to you: ");
@@ -47,17 +62,8 @@ public class ChatbotAnnie implements Topic {
 		ChatbotMain.chatbot.throwBack();
 	}
 
-	public boolean isTriggered(String response) {
-		for(int i = 0; i < keywords.length; i++)
-			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0)
-				return true;
-		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && ChatbotMain.chatbot.getFamilySize() <= 4 && !ChatbotMain.chatbot.getHasPets())
-			return true;
-		return false;
-	}
-		
 	public void list() {
-		 ChatbotMain.print("Hi!");
+		 ChatbotMain.print("- Hi!");
 	}
 	
 	private void provideInfo(String response) {
@@ -86,7 +92,7 @@ public class ChatbotAnnie implements Topic {
 	
 	public static boolean YesNo(String question) {
 		ChatbotMain.print(question);
-		String[] responses = {question + " Yes or no?", "Can you please just answer my question?", "It's a simple yes or no question. " + question, "I'm getting annoyed; this isn't even a hard question. ", question.toUpperCase(), "You know what? Go find somewhere else to buy a house. I am tired and you are not answering my question, goodbye!"};
+		String[] responses = {question + " Yes or no?", "Please just answer my question.", "It's a simple yes or no question. " + question, "I'm getting annoyed; this isn't even a hard question.", question.toUpperCase(), "You know what? Go find somewhere else to buy a house. I am tired, and you are not answering my question. Goodbye!"};
 		String response = ChatbotMain.getInput();
 		boolean yesOrNo = false;
 		while(!yesOrNo)
@@ -100,7 +106,7 @@ public class ChatbotAnnie implements Topic {
 				yesOrNo = true;
 			} else {
 				ChatbotMain.print(responses[annoyedLevel]);
-				if(annoyedLevel < 5) {
+				if(annoyedLevel < responses.length - 1) {
 					response = ChatbotMain.getInput();
 					annoyedLevel++;
 				} else
