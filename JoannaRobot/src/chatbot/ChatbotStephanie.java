@@ -3,18 +3,23 @@ package chatbot;
 public class ChatbotStephanie implements Topic {
 	
 	private String[] keywords;
+	private String[] discSent;
 	private String purchaseKeyword;
 	private String response;
 	private String townhouse;
+	private String finalSent;
 	private int price;
 	private int numNo;
 	
 	public ChatbotStephanie() {
 		String[] temp = {"townhouse", "town", "community", "row house"};
 		keywords = temp;
+		String[] disc = {"Great, I can give you a starting discount.", "Fine, I'm in a good mood so I can go lower.", "I really shouldn't be going any lower but I can make an exception for you.", "This is probably the best deal that I can get for you.", "I REALLY can not go lower than this."};
+		discSent = disc;
 		purchaseKeyword = "yes";
 		response = "";
 		townhouse = "2 family townhome with 6 beds and 4 baths for $2600 per month. ";
+		finalSent = "Would you like to make the purchase now?";
 		price = 2600;
 		numNo = 0;
 	}
@@ -22,13 +27,14 @@ public class ChatbotStephanie implements Topic {
 	public void debate(String initial ) {
 		ChatbotMain.print("Well, why not?");
 		response = ChatbotMain.getInput();
-		boolean discounted = ChatbotMain.YesNo("I can give you a nice discount, how about that?");
+		boolean discounted = ChatbotAnnie.YesNo("I can give you a nice discount, how about that?");
 		response = ChatbotMain.getInput();
-		while (numNo <= 5) {
+		for (int i = 0; i < discSent.length; i++) {
 			if (discounted) {
 				numNo ++;
 				discPrice(price);
-				ChatbotMain.print("Great, how does $" + price + " sound?");
+				ChatbotMain.print(discSent[i] + "That will be $" + price + ". Would you like to make the purchase now?");
+				response = ChatbotMain.getInput();
 				//continue discounting
 			}
 			else {
@@ -36,7 +42,8 @@ public class ChatbotStephanie implements Topic {
 				//continue with user info
 			}
 		}
-		//exit
+		ChatbotMain.print("You really let a nice deal slip by you, what a shame. I hope you have a fine day.");
+		ChatbotMain.chatbot.startChatting();
 	}
 	
 		
@@ -44,15 +51,15 @@ public class ChatbotStephanie implements Topic {
 		ChatbotMain.print("I know a really nice townhouse, would you like to hear about it?");
 		response = ChatbotMain.getInput();
 		if (ChatbotMain.findKeyword(response, purchaseKeyword, 0) >= 0 ) {
-			boolean renting = ChatbotMain.YesNo("There is one townhouse for rent right now and it is a " + townhouse + "Would you be interested in renting this?");
+			boolean renting = ChatbotAnnie.YesNo("There is one townhouse for rent right now and it is a " + townhouse + "Would you be interested in renting this?");
 				if(renting) {
 					ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");		
 				}else {
 					debate(initial);
 				}
 		}else {
-			ChatbotMain.print("Sorry to hear that you're not interested in townhouses, you are really missing out " + ChatbotMain.chatbot.getUsername() + "!");
-			ChatbotMain.chatbot.startChatting();
+			ChatbotMain.print("Sorry to hear that you're not interested in townhouses, you are really missing out.");
+			ChatbotMain.chatbot.throwBack();
 		}
 	}
 
@@ -67,10 +74,7 @@ public class ChatbotStephanie implements Topic {
 	
 	public void discPrice(int initialPrice) {
 		initialPrice = price;
-		while (numNo <= 5)
-			price = price - 100;
-		if(numNo > 5)
-			ChatbotMain.print("This is definitely your loss. I hope you have a fine day.");
+		price = price - 100;
 	}
 		
 	
