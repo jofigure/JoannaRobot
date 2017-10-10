@@ -22,6 +22,8 @@ public class Chatbot {
 		land = new ChatbotKevin();
 		username = "";
 		chatting = true;
+		familySize = 0;
+		forLiving = hasPets = buying = false;
 	}
 	
 	public String getUsername() {
@@ -57,7 +59,7 @@ public class Chatbot {
 	}
 
 	public void startChatting() {
-		ChatbotMain.print("Welcome to JASK Real Estate! What is your name?");
+		ChatbotMain.print("-\n" + "Hello! Welcome to JASK Real Estate. What is your name?");
 		username = ChatbotMain.getInput();
 		evaluate();
 	}
@@ -78,8 +80,9 @@ public class Chatbot {
 			} else if(house.isTriggered(response)) {
 				chatting = false;
 				house.talk(response);
-			} else
+			} else {
 				ChatbotMain.print("I'm sorry. I don't understand. Could you be more specific?");
+			}
 		}
 	} 
 	
@@ -97,12 +100,11 @@ public class Chatbot {
 	public void collectInfo() {
 		forLiving = ChatbotMain.YesNo("Are you looking for a residence?");
 		if(forLiving) {
-			ChatbotMain.print("How big is your family?");
+			ChatbotMain.print("How many people will be living with you?");
 			familySize = ChatbotMain.getPositiveNumInput();
-			hasPets = ChatbotMain.YesNo("Do you have any pets?");
+			hasPets = ChatbotMain.YesNo("Will pets be living with you?");
 			buying = ChatbotMain.YesNo("Are you looking to buy?");
 		}
 	}
 
-} 
- 
+}
