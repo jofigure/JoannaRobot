@@ -42,44 +42,32 @@ public class JoannaChatbot implements Topic {
 					ChatbotMain.print( getPleads());
 						response = ChatbotMain.getInput();
 						
-						if(ChatbotMain.findKeyword(response,"yes" , 0) >=0)
+						
+						
+						
+						if(pleading[keepPlead].equals(pleading[2]))
+						{if(ChatbotMain.findKeyword(response,"yes" , 0) >=0)
 								{
+							pool= true;
 									dontUnderstand("yes", "Cool!Let's buy houses!");
 									listOptions();
+									break;
 								}
-						dontUnderstand("no", "I'm sorry. I don't understand.");
-						response = ChatbotMain.getInput();
-						if(pleading[keepPlead].equals(pleading[2]))
-						{
 							
 							ChatbotMain.print( "So if buying a house isn't for you.");
 						ChatbotMain.chatbot.throwBack();
 							
 						}
+						
+						
 					}
 			
-			
-	
-	
-		
-		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
+		while(ChatbotMain.findKeyword(response,"yes" , 0) >=0)
 		{
-				if(ChatbotMain.findKeyword(response, niceKeyword, 0) >= 0)
-				{
-					
-					ChatbotMain.print( "No problem! Glad to help! Anything else?");
-
-					break;
-				}
-				
-		}
+			listOptions();
+	
 		
-		
-		
-		
-		//access variables from other classes
-		ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername()+ "!");
-		ChatbotMain.chatbot.startChatting();
+	}
 	}
 
 	
@@ -97,6 +85,21 @@ public class JoannaChatbot implements Topic {
 		}
 		response = ChatbotMain.getInput();
 		buyhouse();
+		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
+		{
+				if(ChatbotMain.findKeyword(response, niceKeyword, 0) >= 0)
+				{
+					
+					ChatbotMain.print( "No problem! Glad to help! BYE!");
+
+					
+				}
+				
+				response = ChatbotMain.getInput();
+		}
+	
+		ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername()+ "!");
+		ChatbotMain.chatbot.startChatting();
 	}
 
 	@Override
@@ -147,7 +150,7 @@ public class JoannaChatbot implements Topic {
 			
 		}
 		else {
-			return "?";
+			return "????BRUH you said no so many times. clearly you don't want a house";
 		}
 	}
  
@@ -163,8 +166,9 @@ public String convertFam()
 
 public String dontUnderstand(String word, String react) {
 	
-	while(ChatbotMain.findKeyword(response, word, 0) == -1) {
+	if(ChatbotMain.findKeyword(response, word, 0) == -1) {
 		ChatbotMain.print(react);
+		response = ChatbotMain.getInput();
 		
 	}
 	return word;
@@ -178,10 +182,14 @@ public boolean buyhouse()
 		if(ChatbotMain.findKeyword(response, keywords3[i], 0) >= 0)
 		{	
 			ChatbotMain.print("You've sucessfully bought the " + keywords3[i]+ " house! Congrats.");
-			return true;
+			if(pool==true)
+			{
+			ChatbotMain.print("And with the pool expansion too!Hope you enjoy your new place.");
+			}
 			
+			response = ChatbotMain.getInput();
 			
-		}
+		} 
 	
 		
 	}
