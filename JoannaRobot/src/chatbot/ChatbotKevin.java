@@ -34,7 +34,7 @@ public class ChatbotKevin implements Topic
 		String[] bad = {"Make your choice already, ", "Hurry up. I have other customers to attend to, ", "I don't have all day, ", "Maybe we should just flip a coin on this, "};
 		badResponses = bad;
 		finalizeResponse = "";
-		
+		 
 		farmAlreadySold = false;
 		
 		farmKeyword = "farm";
