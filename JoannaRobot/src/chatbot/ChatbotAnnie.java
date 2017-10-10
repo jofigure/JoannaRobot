@@ -80,7 +80,7 @@ public class ChatbotAnnie implements Topic {
 						ChatbotMain.chatbot.evaluate();
 				}
 				if(!continueLooking) {
-					ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername() + "!");
+					ChatbotMain.print("Well, it was nice doing business with you, " + ChatbotMain.chatbot.getUsername() + "!");
 					ChatbotMain.chatbot.startChatting();
 				}
 			}
