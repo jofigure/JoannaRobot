@@ -9,7 +9,6 @@ public class ChatbotStephanie implements Topic {
 	private String townhouse;
 	private String finalSent;
 	private int price;
-	private int numNo;
 	private boolean bought;
 	
 	public ChatbotStephanie() {
@@ -23,7 +22,6 @@ public class ChatbotStephanie implements Topic {
 		townhouse = "2 family townhome with 6 beds and 4 baths for $2600 per month. ";
 		finalSent = ". Would you like to make the purchase now?";
 		price = 2600;
-		numNo = 0;
 		bought = false;
 	}
 
@@ -31,17 +29,14 @@ public class ChatbotStephanie implements Topic {
 		ChatbotMain.print("Well, why not?");
 		response = ChatbotMain.getInput();
 		boolean discounted = ChatbotAnnie.YesNo("I can give you a nice discount, how about that?");
-		response = ChatbotMain.getInput();
 		if (discounted) {
-			numNo ++;
 			discPrice(price);
-			boolean purchaseTrue = ChatbotAnnie.YesNo("Great, I can start you off at $" + price + finalSent);
-			response = ChatbotMain.getInput();
+			boolean purchaseTrue = ChatbotAnnie.YesNo("Great, I can start you off at $" + price + "per month" + finalSent);
 			if (!purchaseTrue) {
+			discPrice(price);
 				for (int i = 0; i <discSent.length; i++) {
-					boolean discTrue = ChatbotAnnie.YesNo(discSent[i] + "That will be $" + price + finalSent);
+					boolean discTrue = ChatbotAnnie.YesNo(discSent[i] + " That will be $" + price + "per month" + finalSent);
 					if (!discTrue) {
-						numNo++;
 						discPrice(price);
 					}
 					else {
@@ -85,26 +80,28 @@ public class ChatbotStephanie implements Topic {
 	
 		
 	public void talk(String initial) {
-		boolean interested = ChatbotAnnie.YesNo("I know a really nice townhouse, would you like to hear about it?");
-		response = ChatbotMain.getInput();
-		if(bought == true) {
-			ChatbotMain.print("I'm Sorry but this townhouse has already been bought, please come back when there are more available.");
-			ChatbotMain.chatbot.startChatting();
-		}
-		if (interested) {
-			boolean renting = ChatbotAnnie.YesNo("There is one townhouse for rent right now and it is a " + townhouse + "Would you be interested in renting this?");
-				if(renting) {
-					ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");	
-					bought = true;
-					ChatbotMain.chatbot.startChatting();
-				}
-				else 
-					debate(initial);
-		}		
-		else {
-			ChatbotMain.print("Sorry to hear that you're not interested in townhouses, you are really missing out.");
-			ChatbotMain.chatbot.throwBack();
-		}
+		if(ChatbotMain.chatbot.getForLiving()) {
+			boolean interested = ChatbotAnnie.YesNo("I know a really nice townhouse, would you like to hear about it?");
+			if(bought == true) {
+				ChatbotMain.print("I'm Sorry but this townhouse has already been bought, please come back when there are more available.");
+				ChatbotMain.chatbot.startChatting();
+			}
+			if (interested) {
+				boolean renting = ChatbotAnnie.YesNo("There is one townhouse for rent right now and it is a " + townhouse + "Would you be interested in renting this?");
+					if(renting) {
+						ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");	
+						bought = true;
+						ChatbotMain.chatbot.startChatting();
+					}
+					else 
+						debate(initial);
+			}		
+			else {
+				ChatbotMain.print("Sorry to hear that you're not interested in townhouses, you are really missing out.");
+				ChatbotMain.chatbot.throwBack();
+			}
+		} else
+			ChatbotAnnie.mistake();
 	}
 
 	public boolean isTriggered(String response) {
@@ -120,6 +117,6 @@ public class ChatbotStephanie implements Topic {
 		initialPrice = price;
 		price = price - 100;
 	}
-		
+
 	
 }
