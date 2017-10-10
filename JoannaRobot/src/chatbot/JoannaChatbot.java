@@ -11,7 +11,7 @@ public class JoannaChatbot implements Topic {
 	private String[] houseListings;
 	private boolean pool;
 	private int keepPlead;
-
+	private boolean wantHouse;
 	
 	
 	public JoannaChatbot() {
@@ -31,25 +31,22 @@ public class JoannaChatbot implements Topic {
 
 
 	public void talk(String initialInput) {
-		ChatbotMain.print("We have great house listings with afforable pricing. Would you like to look for a house?");
-				response = ChatbotMain.getInput();
+		
+		ChatbotMain.print("We have great house listings with afforable pricing.");
 				
 				
 				
-		while(ChatbotMain.findKeyword(response,"no" , 0) >=0)
-				{
-					
-					ChatbotMain.print( getPleads());
-						response = ChatbotMain.getInput();
-						
-						
-						
-						
+				 wantHouse=ChatbotAnnie.YesNo("Would you like to look at houses?");
+		while(!wantHouse)
+		{
+					getPleads();
 						if(pleading[keepPlead].equals(pleading[2]))
-						{if(ChatbotMain.findKeyword(response,"yes" , 0) >=0)
+						{
+							if(ChatbotAnnie.YesNo("Last chance... pool?"))
 								{
+								
 							pool= true;
-									dontUnderstand("yes", "Cool!Let's buy houses!");
+								
 									listOptions();
 									break;
 								}
@@ -62,12 +59,7 @@ public class JoannaChatbot implements Topic {
 						
 					}
 			
-		while(ChatbotMain.findKeyword(response,"yes" , 0) >=0)
-		{
 			listOptions();
-	
-		
-	}
 	}
 
 	
@@ -125,32 +117,16 @@ public class JoannaChatbot implements Topic {
 	}
 
 	
-	public String getPleads()
+	public void getPleads()
 	{
 		keepPlead++;
-		if(keepPlead==0)
+		if(keepPlead<=2)
 		{	
-			return pleading[keepPlead];
-			
-			
-		}
-		
-		else if(keepPlead==1)
-		{	
-			return pleading[keepPlead];
-			
-			
-		}
-		
-		else if(keepPlead==2)
-		{	
-			
-			return pleading[keepPlead];
-			
+			wantHouse=ChatbotAnnie.YesNo(pleading[keepPlead]);			
 			
 		}
 		else {
-			return "????BRUH you said no so many times. clearly you don't want a house";
+			ChatbotMain.print("????BRUH you said no so many times. clearly you don't want a house"); 
 		}
 	}
  
