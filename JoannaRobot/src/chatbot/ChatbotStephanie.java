@@ -31,15 +31,13 @@ public class ChatbotStephanie implements Topic {
 		ChatbotMain.print("Well, why not?");
 		response = ChatbotMain.getInput();
 		boolean discounted = ChatbotAnnie.YesNo("I can give you a nice discount, how about that?");
-		response = ChatbotMain.getInput();
 		if (discounted) {
 			numNo ++;
 			discPrice(price);
 			boolean purchaseTrue = ChatbotAnnie.YesNo("Great, I can start you off at $" + price + finalSent);
-			response = ChatbotMain.getInput();
 			if (!purchaseTrue) {
 				for (int i = 0; i <discSent.length; i++) {
-					boolean discTrue = ChatbotAnnie.YesNo(discSent[i] + "That will be $" + price + finalSent);
+					boolean discTrue = ChatbotAnnie.YesNo(discSent[i] + " That will be $" + price + finalSent);
 					if (!discTrue) {
 						numNo++;
 						discPrice(price);
@@ -86,7 +84,6 @@ public class ChatbotStephanie implements Topic {
 		
 	public void talk(String initial) {
 		boolean interested = ChatbotAnnie.YesNo("I know a really nice townhouse, would you like to hear about it?");
-		response = ChatbotMain.getInput();
 		if(bought == true) {
 			ChatbotMain.print("I'm Sorry but this townhouse has already been bought, please come back when there are more available.");
 			ChatbotMain.chatbot.startChatting();
