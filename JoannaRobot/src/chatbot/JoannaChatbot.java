@@ -33,42 +33,55 @@ public class JoannaChatbot implements Topic {
 
 	public void talk(String initialInput) {
 		
-		ChatbotMain.print("We have great house listings with afforable pricing.");
-				
-				
-				
-				 wantHouse=ChatbotAnnie.YesNo("Would you like to look at houses?");
-		while(!wantHouse)
-		{
-					getPleads();
-						if(pleading[keepPlead].equals(pleading[2]))
-						{	if(wantPool)
-							{
-							pool= true;
-							
-							listOptions();
-							break;
-							}
-						else {
-							if(ChatbotAnnie.YesNo("Last chance... pool?"))
-								{
-								
-							pool= true;
-								
-									listOptions();
-									break;
-								}
-						}
-							ChatbotMain.print( "So if buying a house isn't for you.");
-						ChatbotMain.chatbot.throwBack();
-							
-						}
-						
-						
-					}
+		if(ChatbotMain.chatbot.getForLiving()) {
+		  
 			
-			listOptions();
-	} 
+			
+
+			ChatbotMain.print("We have great house listings with afforable pricing.");
+					
+					
+					
+					 wantHouse=ChatbotAnnie.YesNo("Would you like to look at houses?");
+			while(!wantHouse)
+			{
+						getPleads();
+							if(pleading[keepPlead].equals(pleading[2]))
+							{	if(wantPool)
+								{
+								pool= true;
+								
+								listOptions();
+								break;
+								}
+							else {
+								if(ChatbotAnnie.YesNo("Last chance... pool?"))
+									{
+									
+								pool= true;
+									
+										listOptions();
+										break;
+									}
+							}
+								ChatbotMain.print( "So if buying a house isn't for you.");
+							ChatbotMain.chatbot.throwBack();
+								
+							}
+							
+							
+						}
+				
+				listOptions();
+			
+			
+			
+			
+			
+			
+		} else
+			ChatbotAnnie.mistake();
+		} 
 
 	
 
