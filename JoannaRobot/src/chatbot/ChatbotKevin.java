@@ -50,6 +50,10 @@ public class ChatbotKevin implements Topic
 			{
 				return true;
 			}
+			if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && !ChatbotMain.chatbot.getForLiving()) 
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -68,21 +72,28 @@ public class ChatbotKevin implements Topic
 			}
 			else
 			{
-				ChatbotMain.print("Please specify your choice, " + ChatbotMain.chatbot.getUsername() + ".");
-				response = ChatbotMain.getInput();
-				
-				patience--;
-				
-				if (patience > 0)
+				if (ChatbotMain.findKeyword(response, noKeyword, 0) >= 0)
 				{
-					buyFarmOrPL();
+					ChatbotMain.print("Sorry to hear that, " + ChatbotMain.chatbot.getUsername() + ". It was nice meeting you.";
+					ChatbotMain.chatbot.startChatting();
 				}
 				else
 				{
-					patienceEnd();
+					ChatbotMain.print("Please specify your choice, " + ChatbotMain.chatbot.getUsername() + ".");
+					response = ChatbotMain.getInput();
+				
+					patience--;
+				
+					if (patience > 0)
+					{
+						buyFarmOrPL();
+					}
+					else
+					{
+						patienceEnd();
+					}
 				}
 			}
-		}
 		else
 		{
 			if (ChatbotMain.findKeyword(response, parkingKeyword, 0) >= 0)
@@ -188,10 +199,10 @@ public class ChatbotKevin implements Topic
 				
 				buyFarmOrPL();
 				
-				ChatbotMain.print("Please respond to my question, " + ChatbotMain.chatbot.getUsername() + ".");
-				response = ChatbotMain.getInput();
 			}
-				patienceEnd();
+			
+			ChatbotMain.print("If you're not 100% sure you are interested, please come by another time " + ChatbotMain.chatbot.getUsername() + ". JASK Real Estate is currently busy.");
+			ChatbotMain.chatbot.startChatting();
 		}
 		else
 		{
