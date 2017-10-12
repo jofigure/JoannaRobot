@@ -74,7 +74,7 @@ public class ChatbotKevin implements Topic
 			{
 				if (ChatbotMain.findKeyword(response, noKeyword, 0) >= 0)
 				{
-					ChatbotMain.print("Sorry to hear that, " + ChatbotMain.chatbot.getUsername() + ". It was nice meeting you.";
+					ChatbotMain.print("Sorry to hear that, " + ChatbotMain.chatbot.getUsername() + ". It was nice meeting you.");
 					ChatbotMain.chatbot.startChatting();
 				}
 				else
@@ -94,6 +94,7 @@ public class ChatbotKevin implements Topic
 					}
 				}
 			}
+		}
 		else
 		{
 			if (ChatbotMain.findKeyword(response, parkingKeyword, 0) >= 0)
