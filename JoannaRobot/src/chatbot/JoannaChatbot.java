@@ -112,7 +112,7 @@ public class JoannaChatbot implements Topic {
 			{	
 				return true;
 			}
-			if(ChatbotMain.chatbot.getFamilySize()>= 2 && ChatbotMain.chatbot.getBuying() == true) 
+			if(ChatbotMain.chatbot.getFamilySize()>= 2 && ChatbotMain.chatbot.getBuying() == true && ChatbotMain.findKeyword(response, "no", 0)>= 0) 
 			{
 				return true;
 				
@@ -155,16 +155,7 @@ public String convertFam()
 }
 
 
-public String dontUnderstand(String word, String react) {
-	
-	if(ChatbotMain.findKeyword(response, word, 0) == -1) {
-		ChatbotMain.print(react);
-		response = ChatbotMain.getInput();
-		
-	}
-	return word;
-	
-}
+
 
 public boolean buyhouse()
 {
