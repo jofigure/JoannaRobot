@@ -8,11 +8,12 @@ public class ChatbotStephanie implements Topic {
 	private String response;
 	private String townhouse;
 	private String finalSent;
+	private String finalSent2;
 	private int price;
 	private boolean bought;
 	
 	public ChatbotStephanie() {
-		String[] temp = {"townhouse", "town", "community", "row house"};
+		String[] temp = {"townhouse", "town", "towns", "townhouses", "community", "row house"};
 		keywords = temp;
 		String[] disc = {"Fine, I'm in a good mood so I can go lower.", "I really shouldn't be going any lower but I can make an exception for you.", "This is probably the best deal that I can get for you.", "I REALLY can not go lower than this."};
 		discSent = disc;
@@ -20,7 +21,8 @@ public class ChatbotStephanie implements Topic {
 		space = famComp;
 		response = "";
 		townhouse = "2 family townhome with 6 beds and 4 baths for $2600 per month. ";
-		finalSent = ". Would you like to make the purchase now?";
+		finalSent = "Would you like to rent the townhouse now?";
+		finalSent2 = "Have you reconsidered your decision now?";
 		price = 2600;
 		bought = false;
 	}
@@ -31,11 +33,13 @@ public class ChatbotStephanie implements Topic {
 		boolean discounted = ChatbotAnnie.YesNo("I can give you a nice discount, how about that?");
 		if (discounted) {
 			discPrice(price);
-			boolean purchaseTrue = ChatbotAnnie.YesNo("Great, I can start you off at $" + price + "per month" + finalSent);
+			ChatbotMain.print("Great, I can start you off at $" + price + " per month.");
+			boolean purchaseTrue = ChatbotAnnie.YesNo("Would you like to rent the townhouse?");
 			if (!purchaseTrue) {
 			discPrice(price);
 				for (int i = 0; i <discSent.length; i++) {
-					boolean discTrue = ChatbotAnnie.YesNo(discSent[i] + " That will be $" + price + "per month" + finalSent);
+					ChatbotMain.print(discSent[i] + " That will be $" + price + " per month.");
+					boolean discTrue = ChatbotAnnie.YesNo(finalSent);
 					if (!discTrue) {
 						discPrice(price);
 					}
@@ -55,8 +59,8 @@ public class ChatbotStephanie implements Topic {
 			}
 		}
 		else {
-			ChatbotMain.print("You're a really strange person to be refusing a discount. If price is not the problem then it must be the size of the house.");
-			boolean sizeProblem = ChatbotAnnie.YesNo("I see that you have a family size of " + ChatbotMain.chatbot.getFamilySize() + ". That's just the right amount of people to live comfortably" + finalSent);
+			ChatbotMain.print("You're a really strange person to be refusing a discount. If price is not the problem then it must be the size of the house. I see that you have a family size of " + ChatbotMain.chatbot.getFamilySize() + ". That's just the right amount of people to live comfortably");
+			boolean sizeProblem = ChatbotAnnie.YesNo("Have you reconsidered your decision?");
 			if(sizeProblem) {
 				ChatbotMain.print("I'm so glad that you reconsidered, I hope you live comfortably in the new townhouse!");
 				bought = true;
@@ -64,7 +68,8 @@ public class ChatbotStephanie implements Topic {
 			}
 			else {
 				for (int i = 0; i < space.length; i++) {
-					boolean sizeTrue = ChatbotAnnie.YesNo(space[i] +  finalSent);
+					ChatbotMain.print(space[i]);
+					boolean sizeTrue = ChatbotAnnie.YesNo(finalSent2);
 					if(sizeTrue) {
 						ChatbotMain.print("I knew you would understand, thank you for renting this townhouse. Please enjoy your new life here!");
 						bought = true;
@@ -81,13 +86,15 @@ public class ChatbotStephanie implements Topic {
 		
 	public void talk(String initial) {
 		if(ChatbotMain.chatbot.getForLiving()) {
-			boolean interested = ChatbotAnnie.YesNo("I know a really nice townhouse, would you like to hear about it?");
+			ChatbotMain.print("I know a really nice townhouse!");
+			boolean interested = ChatbotAnnie.YesNo("Would you like to hear about it?");
 			if(bought == true) {
 				ChatbotMain.print("I'm Sorry but this townhouse has already been bought, please come back when there are more available.");
 				ChatbotMain.chatbot.startChatting();
 			}
 			if (interested) {
-				boolean renting = ChatbotAnnie.YesNo("There is one townhouse for rent right now and it is a " + townhouse + "Would you be interested in renting this?");
+				ChatbotMain.print("There is one townhouse for rent right now and it is a " + townhouse);
+				boolean renting = ChatbotAnnie.YesNo("Would you be interested in renting this?");
 					if(renting) {
 						ChatbotMain.print("Thank you for renting this townhouse! It was a pleasure doing business with you " + ChatbotMain.chatbot.getUsername() + "!");	
 						bought = true;
