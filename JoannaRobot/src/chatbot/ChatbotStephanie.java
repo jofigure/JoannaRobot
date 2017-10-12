@@ -16,7 +16,7 @@ public class ChatbotStephanie implements Topic {
 		keywords = temp;
 		String[] disc = {"Fine, I'm in a good mood so I can go lower.", "I really shouldn't be going any lower but I can make an exception for you.", "This is probably the best deal that I can get for you.", "I REALLY can not go lower than this."};
 		discSent = disc;
-		String[] famComp = {"The townhouse is approximately 27,000 square feet. That's neither too big nor too small", "I'm sure there's nothing wrong with a house having too much space", "You can always rent out the extra space to other people"};
+		String[] famComp = {"The townhouse is approximately 27,000 square feet. That's neither too big nor too small.", "I'm sure there's nothing wrong with a house having too much space.", "You can always rent out the extra space to other people."};
 		space = famComp;
 		townhouse = "2 family townhome with 6 beds and 4 baths for $2600 per month. ";
 		finalSent = "Would you like to rent the townhouse now?";
@@ -57,7 +57,7 @@ public class ChatbotStephanie implements Topic {
 			}
 		}
 		else {
-			ChatbotMain.print("You're a really strange person to be refusing a discount. If price is not the problem then it must be the size of the house. I see that you have a family size of " + ChatbotMain.chatbot.getFamilySize() + ". That's just the right amount of people to live comfortably");
+			ChatbotMain.print("You're a really strange person to be refusing a discount. If price is not the problem then it must be the size of the house. I see that you have a family size of " + ChatbotMain.chatbot.getFamilySize() + ". That's just the right amount of people to live comfortably.");
 			boolean sizeProblem = ChatbotAnnie.YesNo("Have you reconsidered your decision?");
 			if(sizeProblem) {
 				ChatbotMain.print("I'm so glad that you reconsidered, I hope you live comfortably in the new townhouse!");
