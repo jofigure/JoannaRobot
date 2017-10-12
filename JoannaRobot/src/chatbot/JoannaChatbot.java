@@ -22,7 +22,7 @@ public class JoannaChatbot implements Topic {
 		goodbyeKeyword = "bye";
 		 niceKeyword = "thanks";
 		response = "";
-		String[] home =  { "Blue 3 floor house" ," Red 1 floor house" , "Wooden house", "Brick no basement house"};
+		String[] home =  { " A blue 3 floor house" ," A red 1 floor house" , "A wooden house", "A brick no basement house"};
 		houseListings = home;
 		pool = false;
 		String[] adj = { "Blue","Red", "Wooden", "Brick", "no basement", "1" , "2", "3"  ,"4"};
@@ -38,11 +38,11 @@ public class JoannaChatbot implements Topic {
 			
 			
 
-			ChatbotMain.print("We have great house listings with afforable pricing.");
+			ChatbotMain.print("We have great house listings with affordable pricing.");
 					
 					
 					
-					 wantHouse=ChatbotAnnie.YesNo("Would you like to look at houses?");
+					 wantHouse=ChatbotAnnie.YesNo("Would you like to look at the houses?");
 			while(!wantHouse)
 			{
 						getPleads();
@@ -55,7 +55,7 @@ public class JoannaChatbot implements Topic {
 								break;
 								}
 							else {
-								if(ChatbotAnnie.YesNo("Last chance... pool?"))
+								if(ChatbotAnnie.YesNo("Last chance... Want a pool?"))
 									{
 									
 								pool= true;
@@ -64,7 +64,7 @@ public class JoannaChatbot implements Topic {
 										break;
 									}
 							}
-								ChatbotMain.print( "So if buying a house isn't for you.");
+								ChatbotMain.print( "Judging from your responses,buying a house isn't for you.");
 							ChatbotMain.chatbot.throwBack();
 								
 							}
@@ -87,7 +87,7 @@ public class JoannaChatbot implements Topic {
 
 	private void listOptions() {
 		
-		ChatbotMain.print(" Does any of these seem of interest to you:" );
+		ChatbotMain.print(" Do any of these seem of interest to you:" );
 		
 		for(int i =0; i< houseListings.length; i++)
 		{
@@ -103,7 +103,7 @@ public class JoannaChatbot implements Topic {
 				if(ChatbotMain.findKeyword(response, niceKeyword, 0) >= 0)
 				{
 					
-					ChatbotMain.print( "No problem! Glad to help! BYE!");
+					ChatbotMain.print( "No problem! Glad to help! Bye!");
 
 					
 				}
@@ -151,7 +151,7 @@ public class JoannaChatbot implements Topic {
 				wantPool=ChatbotAnnie.YesNo(pleading[keepPlead]);
 			}
 	else {
-			ChatbotMain.print("????BRUH you said no so many times. clearly you don't want a house"); 
+			ChatbotMain.print("Now you're just playing around. We are a very busy real estate company. Please come again when you have decided what you want to buy or rent. See you! "); 
 			keepPlead=-1;
 			ChatbotMain.chatbot.startChatting();
 		}
@@ -176,7 +176,7 @@ public boolean buyhouse()
 	{
 		if(ChatbotMain.findKeyword(response, keywords3[i], 0) >= 0)
 		{	
-			ChatbotMain.print("You've sucessfully bought the " + keywords3[i]+ " house! Congrats.");
+			ChatbotMain.print("You've successfully bought the " + keywords3[i]+ " house! Congrats.");
 			if(pool==true)
 			{
 			ChatbotMain.print("And with the pool expansion too!Hope you enjoy your new place.");
