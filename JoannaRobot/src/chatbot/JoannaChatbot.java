@@ -12,6 +12,7 @@ public class JoannaChatbot implements Topic {
 	private boolean pool;
 	private int keepPlead;
 	private boolean wantHouse;
+	private boolean wantPool;
 	
 	
 	public JoannaChatbot() {
@@ -41,7 +42,14 @@ public class JoannaChatbot implements Topic {
 		{
 					getPleads();
 						if(pleading[keepPlead].equals(pleading[2]))
-						{
+						{	if(wantPool)
+							{
+							pool= true;
+							
+							listOptions();
+							break;
+							}
+						else {
 							if(ChatbotAnnie.YesNo("Last chance... pool?"))
 								{
 								
@@ -50,7 +58,7 @@ public class JoannaChatbot implements Topic {
 									listOptions();
 									break;
 								}
-							
+						}
 							ChatbotMain.print( "So if buying a house isn't for you.");
 						ChatbotMain.chatbot.throwBack();
 							
@@ -120,13 +128,20 @@ public class JoannaChatbot implements Topic {
 	public void getPleads()
 	{
 		keepPlead++;
-		if(keepPlead<=2)
+		if(keepPlead<2)
 		{	
-			wantHouse=ChatbotAnnie.YesNo(pleading[keepPlead]);			
-			
+			wantHouse=ChatbotAnnie.YesNo(pleading[keepPlead]);
 		}
 		else {
+		if(keepPlead==2)
+			{
+				wantPool=ChatbotAnnie.YesNo(pleading[keepPlead]);
+			}
+	else {
 			ChatbotMain.print("????BRUH you said no so many times. clearly you don't want a house"); 
+			keepPlead=-1;
+			ChatbotMain.chatbot.startChatting();
+		}
 		}
 	}
  
