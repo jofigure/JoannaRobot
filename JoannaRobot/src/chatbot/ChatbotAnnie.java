@@ -20,7 +20,7 @@ public class ChatbotAnnie implements Topic {
 	public ChatbotAnnie() {
 		annoyedLevel = 0;
 		response = buyOrRent = "";
-		String[] temp = {"apt", "apartment", "city", "flat", "condo", "condominium", "co-op", "loft", "duplex"};
+		String[] temp = {"apt", "apartment", "city", "flat", "condo", "condominium", "co-op", "loft", "duplex", "urban"};
 		keywords = temp;
 		String[] temp2 = {"studio co-op", "studio apartment", "one-bedroom condominium", "three-bedroom duplex", "two-bedroom loft", "two-bedroom co-op"};
 		listings = temp2;
