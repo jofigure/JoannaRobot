@@ -5,7 +5,6 @@ public class ChatbotStephanie implements Topic {
 	private String[] keywords;
 	private String[] discSent;
 	private String[] space;
-	private String response;
 	private String townhouse;
 	private String finalSent;
 	private String finalSent2;
@@ -19,7 +18,6 @@ public class ChatbotStephanie implements Topic {
 		discSent = disc;
 		String[] famComp = {"The townhouse is approximately 27,000 square feet. That's neither too big nor too small", "I'm sure there's nothing wrong with a house having too much space", "You can always rent out the extra space to other people"};
 		space = famComp;
-		response = "";
 		townhouse = "2 family townhome with 6 beds and 4 baths for $2600 per month. ";
 		finalSent = "Would you like to rent the townhouse now?";
 		finalSent2 = "Have you reconsidered your decision now?";
@@ -29,7 +27,7 @@ public class ChatbotStephanie implements Topic {
 
 	public void debate(String initial ) {
 		ChatbotMain.print("Well, why not?");
-		response = ChatbotMain.getInput();
+		ChatbotMain.getInput();
 		boolean discounted = ChatbotAnnie.YesNo("I can give you a nice discount, how about that?");
 		if (discounted) {
 			discPrice(price);
