@@ -120,7 +120,7 @@ public class JoannaChatbot implements Topic {
 			{	
 				return true;
 			}
-			if((ChatbotMain.chatbot.getFamilySize()>= 2 || ChatbotMain.chatbot.getBuying() == true) && ChatbotMain.findKeyword(response, "no", 0)>= 0) 
+			if(ChatbotMain.chatbot.getBuying() == true && ChatbotMain.findKeyword(response, "no", 0)>= 0)
 			{
 				return true;
 				
