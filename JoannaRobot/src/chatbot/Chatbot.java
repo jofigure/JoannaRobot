@@ -100,7 +100,7 @@ public class Chatbot {
 	public void collectInfo() {
 		forLiving = ChatbotMain.YesNo("Are you looking for a residence?");
 		if(forLiving) {
-			ChatbotMain.print("How many people will be living with you?");
+			ChatbotMain.print("How many people will be living in there?");
 			familySize = ChatbotMain.getPositiveNumInput();
 			hasPets = ChatbotMain.YesNo("Will pets be living with you?");
 			buying = ChatbotMain.YesNo("Are you looking to buy?");

@@ -46,7 +46,7 @@ public class ChatbotAnnie implements Topic {
 				isSuggestion = false;
 				return true;
 			}
-		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && ChatbotMain.chatbot.getFamilySize() <= 5 && !ChatbotMain.chatbot.getHasPets()) {
+		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 && ChatbotMain.chatbot.getFamilySize() <= 6 && !ChatbotMain.chatbot.getHasPets()) {
 			isSuggestion = true;
 			return true;
 		}
