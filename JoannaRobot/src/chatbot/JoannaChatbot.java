@@ -96,8 +96,18 @@ public class JoannaChatbot implements Topic {
 			
 			
 		}
-		response = ChatbotMain.getInput();
-		buyhouse();
+		boolean likeHouse = ChatbotAnnie.YesNo(" ?");
+		if(likeHouse)
+				{
+				ChatbotMain.print(" Okay which one would you like to buy? Please mention the color/number/material of the house. ");
+					buyhouse();
+				} else { 
+					
+					ChatbotMain.print("Now you're just playing around. We are a very busy real estate company. Please come again when you have decided what you want to buy or rent. See you! "); 
+					keepPlead=-1;
+					ChatbotMain.chatbot.startChatting();
+					
+				}
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1)
 		{
 				if(ChatbotMain.findKeyword(response, niceKeyword, 0) >= 0)
@@ -111,7 +121,7 @@ public class JoannaChatbot implements Topic {
 				response = ChatbotMain.getInput();
 		}
 	
-		ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername()+ "!");
+		ChatbotMain.print("	It was nice talking to you, " + ChatbotMain.chatbot.getUsername()+ "!");
 		ChatbotMain.chatbot.startChatting();
 	}
 
@@ -171,19 +181,24 @@ public String convertFam()
 
 
 public boolean buyhouse()
-{
+{	
+	
+	response = ChatbotMain.getInput();
 	for(int i = 0; i< keywords3.length; i++)
 	{
 		if(ChatbotMain.findKeyword(response, keywords3[i], 0) >= 0)
 		{	
-			ChatbotMain.print("You've successfully bought the " + keywords3[i]+ " house! Congrats.");
+			ChatbotMain.print("You've successfully bought the " + keywords3[i]+ " house! Congrats. ");
 			if(pool==true)
 			{
 			ChatbotMain.print("And with the pool expansion too!Hope you enjoy your new place.");
 			}
-			
-			response = ChatbotMain.getInput();
-			
+			ChatbotMain.print("Now you can either say thanks or say bye, if you don't I won't respond. ");
+			response = ChatbotMain.getInput(); 
+			if(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= 0)
+			{
+				ChatbotMain.print("Aren't you a grumpy one! I, on the other hand am not so ");
+			}
 		} 
 	
 		
